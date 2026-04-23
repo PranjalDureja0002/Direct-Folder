@@ -1,0 +1,1843 @@
+table_name: DBO.VW_DIRECT_SPEND_ALL
+description: Distinct column values for VW_DIRECT_SPEND_ALL
+column_values:
+  REGION:
+    cardinality: 3
+    examples:
+    - Germany and Eastern Europe
+    - LATAM (Mexico)
+    - North America
+    complete: true
+  INCO_TERM:
+    cardinality: 9
+    examples:
+    - CIF
+    - CIP
+    - CPT
+    - DAP
+    - DDP
+    - DDU
+    - EXW
+    - FCA
+    - FOB
+    complete: true
+  TERMS_OF_PAYMENT:
+    cardinality: 79
+    examples:
+    - '0000'
+    - '1436'
+    - CZ45
+    - DJ01
+    - DJ02
+    - DJ03
+    - DJ04
+    - DJ07
+    - DJ20
+    - DJ21
+    - DJ33
+    - DJ46
+    - DK00
+    - DK01
+    - DK02
+    - DK04
+    - DK07
+    - DK08
+    - DK09
+    - DK1
+    - DK10
+    - DK11
+    - DK13
+    - DK16
+    - DK17
+    - DK18
+    - DK19
+    - DK20
+    - DK22
+    - DK23
+    - DK25
+    - DK26
+    - DK29
+    - DK30
+    - DK31
+    - DK33
+    - DK34
+    - DK35
+    - DK37
+    - DK38
+    - DK39
+    - DK41
+    - DK43
+    - DK44
+    - DK48
+    - DK50
+    - DK52
+    - DK53
+    - DK55
+    - DK59
+    - DK65
+    - DK66
+    - DK73
+    - DK76
+    - DK77
+    - DK80
+    - DK81
+    - DK82
+    - DK83
+    - DK85
+    - DK86
+    - DK91
+    - DK92
+    - E055
+    - OA04
+    - ZC02
+    - ZC04
+    - ZC06
+    - ZC12
+    - ZC14
+    - ZC18
+    - ZC30
+    - ZC40
+    - ZC45
+    - ZC77
+    - ZC90
+    - ZC92
+    - ZC93
+    - ZC94
+    complete: true
+  Com. Supplier:
+    cardinality: 44
+    examples:
+    - '0'
+    - C000
+    - C002
+    - C015
+    - C020
+    - D000
+    - E000
+    - E001
+    - E002
+    - E003
+    - E004
+    - E005
+    - E006
+    - E007
+    - E008
+    - E009
+    - E010
+    - E011
+    - E012
+    - E013
+    - E014
+    - E015
+    - E016
+    - E017
+    - L000
+    - P000
+    - P002
+    - P003
+    - P006
+    - P008
+    - P011
+    - P012
+    - P017
+    - P025
+    - P029
+    - S000
+    - S002
+    - S005
+    - S006
+    - S009
+    - S010
+    - T000
+    - T001
+    - T003
+    complete: true
+  Comm supplier desc.:
+    cardinality: 42
+    examples:
+    - Abfall- und Recyclin
+    - Artificial Skins, Se
+    - Audio Visual / Multi
+    - Beratungs- und Recht
+    - Betriebs-/Werkstatte
+    - Capex
+    - Chrome Plated Decora
+    - Decorative
+    - Elektrischer Antrieb
+    - Energie
+    - Farben und Lacke 
+    - Functional Assemblie
+    - Gestelle / Gehänge
+    - Illumination
+    - Insulation
+    - IT Hardware & Equipm
+    - Klebeanlagen / Klebe
+    - Leather
+    - Mechan. Ersatzteile
+    - Metal Parts / Fasten
+    - Modules
+    - Molding Plastic Part
+    - Neuwerkzeuge
+    - Packaging Materials
+    - Paints
+    - Plant Purchasing
+    - Prototyping tools &
+    - Reinigung
+    - Reinigungs-, Pflegem
+    - Reisen und Verpflegu
+    - Resins
+    - Sanitärartikel, Körp
+    - Schäumanlagen
+    - Schulung - und Weite
+    - Sensors
+    - Services
+    - Subcontracting
+    - Switch
+    - Tools & Engineering
+    - Transport / Logistik
+    - Transportgerät
+    - Wire Harness
+    complete: true
+  TERMS_OF_PAYMENT_DESCRIPTION:
+    cardinality: 70
+    examples:
+    - 10 days - 1% discount, 30 days net
+    - 10 days - 2% discount, 30 days net
+    - 10 days - 3% discount
+    - 10 days - 3% discount, 30 days net
+    - 14 days - 1% discount
+    - 14 days - 1% discount, 30 days net
+    - 14 days - 2% discount
+    - 14 days - 2% discount, 30 days net
+    - 14 days - 3% discount, 30 days net
+    - 14 days - 4 % discount, 60 days net
+    - 14 days - 4% discount, 30 days net
+    - 14 days- 3 % discount, 60 days net
+    - 15 days - 3% discount
+    - 15 days - 3% discount, 30 days - 2% discount, 60 d
+    - 15 days - 3% discount, 60 days net
+    - 23 days - 2 % discount, 60 days net
+    - 30 days - 2% discount
+    - 30 days - 3% discount
+    - 30 days - 3% discount, 60 days net
+    - 40 days - 3% discount
+    - 45 days - 3% discount, 60 days net
+    - 45 days  from 1st day of following month net
+    - 5 days - 2% discount
+    - 5th day of the next three months
+    - 5th day of the next two months
+    - 60 days - 3% discount
+    - 75 days net
+    - 8 days - 2% discount, 30 days net
+    - 8 days - 3% discount, 30 days net
+    - Before End of the next month ;; Due net
+    - payable immediately - 2 % discount
+    - payable immediately - 4 % discount
+    - payable immediately without deduction
+    - payable on 30th of the month without deduction
+    - Please do not use
+    - Till the 30th follow. month 2% disc., 90 days net
+    - until 25th in 2 months net
+    - until 25th of the month without deduction
+    - until the 15th of the following month without dedu
+    - until the 25th of the following month - 1% discoun
+    - until the 25th of the following month - 2% discoun
+    - until the 25th of the following month -- 3% discou
+    - until the 25th of the following month - 3% discoun
+    - until the 25th of the following month net
+    - until the 2nd in two months without deduction
+    - until the 30th of the following month with 2% disc
+    - until the 30th of the following month with 3% disc
+    - until the 30th of the following month without dedu
+    - up to 15th in 2 months without deduction
+    - within 1 day without deduction
+    - within 10 days without deduction
+    - within 120 days without deduction
+    - within 14 days due net
+    - within 14 days without deduction
+    - within 15 days without deduction
+    - within 20 days without deduction
+    - within 30 days due net
+    - within 30 days without deduction
+    - Within 40 days Due net
+    - within 40 days without deduction
+    - within 45 days due net
+    - within 45 days without deduction
+    - within 5 days without deduction
+    - within 50 days without deduction
+    - Within 60 days without deduction
+    - within 7 days without deduction
+    - Within 77 days due net
+    - within 8 days without deduction
+    - within 90 days due net
+    - within 90 days without deduction
+    complete: true
+  VENDOR_NAME:
+    cardinality: 884
+    examples:
+    - NOVEM CAR INTERIOR DESIGN GMBH
+    - AD PLASTIK TISZA KFT.
+    - MSSL ADVANCED POLYMERS S.R.O.
+    - TANNE KUNSTSTOFFTECHNIK GMBH
+    - BMW AG
+    - EISSMANN AUTOMOTIVE PELL CITY LLC
+    - Q-AUTOMOTIVE KFT.
+    - KNAUF INDUSTRIES HUNGARY KFT.
+    - EISSMANN SMP AUTOMOTIVE INTERIEUR
+    - LETOPLAST S.R.O.
+    - AUTOTEST SÜDTIROL GMBH
+    - SMP AUTOMOTIVE INTERIOR MODULES D.O
+    - SMR AUTOMOTIVE MIRROR TECHNOLOGY
+    - COLORPROFI AUTOMOTIVE, SPO. S.R.O
+    - CHROFF KUNSTSTOFFTECHNIK GMBH
+    - ROYAL TECHNOLOGIES CORP
+    - JÜRGEN WEISS GMBH + CO.
+    - MÜLLER - DIE LILA LOGISTIK
+    - BOLTA WERKE GMBH
+    - ECKERLE SPRITZ- UND LASERSCHWEIß-
+    complete: false
+  COUNTRY:
+    cardinality: 5
+    examples:
+    - GER
+    - HUN
+    - MEX
+    - SRB
+    - USA
+    complete: true
+  NATION:
+    cardinality: 38
+    examples:
+    - AE
+    - AT
+    - AU
+    - BE
+    - BG
+    - CH
+    - CN
+    - CZ
+    - DE
+    - DK
+    - ES
+    - FI
+    - FR
+    - GB
+    - HK
+    - HR
+    - HU
+    - IE
+    - IL
+    - IN
+    - IT
+    - KR
+    - LT
+    - LU
+    - MA
+    - MX
+    - NL
+    - PL
+    - PT
+    - RO
+    - RS
+    - SE
+    - SI
+    - SK
+    - TH
+    - TN
+    - TR
+    - US
+    complete: true
+  ACCOUNT_GROUP:
+    cardinality: 5
+    examples:
+    - CPDL
+    - ZDLI
+    - ZDSK
+    - ZDSP
+    - ZDVB
+    complete: true
+  SUPP_DUNS_NO:
+    cardinality: 1002
+    examples:
+    - '932662133'
+    - '427221127'
+    - '496869132'
+    - '342306599'
+    - '323897132'
+    - 080597998
+    - '427830190'
+    - '401141445'
+    - '367035231'
+    - '495112401'
+    - '630982114'
+    - '538216872'
+    - '495449019'
+    - '401185806'
+    - '341716681'
+    - '178313383'
+    - '330437679'
+    - '119194289'
+    - '332458590'
+    - '332505333'
+    complete: false
+  PARENT_DUNS:
+    cardinality: 776
+    examples:
+    - '218129829'
+    - '650106917'
+    - '644931370'
+    - '342306599'
+    - '315369934'
+    - 080597998
+    - '427830190'
+    - '316645860'
+    - '330255956'
+    - '400771904'
+    - '314133324'
+    - '496683669'
+    - '341716681'
+    - '178313383'
+    - '341713726'
+    - '332458590'
+    - '332505333'
+    - '236093196'
+    - '313735576'
+    - '860731462'
+    complete: false
+  PARENT_SUPPLIER_NAME:
+    cardinality: 803
+    examples:
+    - ROKOKO AUTOMOTIVE HOLDINGS (JERSEY) LIMITED
+    - SAMVARDHANA MOTHERSON INTERNATIONAL LIMITED
+    - AD PLASTIK d.d.
+    - TANNE KUNSTSTOFFTECHNIK GMBH
+    - Bayerische Motoren Werke Aktiengesellschaft
+    - EISSMANN AUTOMOTIVE PELL CITY LLC
+    - Q-AUTOMOTIVE Ipari és Kereskedelmi Korlátolt Felelosségu Társaság
+    - Gebr. Knauf KG
+    - Eissmann Automotive Deutschland GmbH
+    - Letoplast Invest
+    - ATON 2 GmbH
+    - COLORprofi Holding s.r.o.
+    - CHROFF KUNSTSTOFFTECHNIK GMBH
+    - Royal Technologies Corporation
+    - Michael Müller Beteiligungs GmbH
+    - ECKERLE SPRITZ- UND LASERSCHWEIß-
+    - JOCHEN WEISS KUNSTSTOFFTECHNIK GMBH
+    - PURICO LIMITED
+    - Zweite Synectra GmbH
+    - PLASTICPAINT KFT.
+    complete: false
+  SUPPLIER_NO:
+    cardinality: 1057
+    examples:
+    - '33265005'
+    - '33263844'
+    - '33259762'
+    - '33089137'
+    - '33083259'
+    - '33264377'
+    - '33268596'
+    - '33261470'
+    - '33260962'
+    - '33262050'
+    - '33257602'
+    - '33267697'
+    - '33262012'
+    - '33390233'
+    - '33260227'
+    - '33262579'
+    - '33093674'
+    - '33270326'
+    - '33262028'
+    - '33261264'
+    complete: false
+  VENDOR_NO:
+    cardinality: 888
+    examples:
+    - 33086533
+    - 33263844
+    - 33259762
+    - 33089137
+    - 33089051
+    - 33264377
+    - 33268596
+    - 33261470
+    - 33260962
+    - 33262050
+    - 33257602
+    - 33267697
+    - 33390233
+    - 33262012
+    - 33260227
+    - 33262579
+    - 33085335
+    - 33093674
+    - 33087261
+    - 33262028
+    complete: false
+  SUPPLIER_NAME:
+    cardinality: 1007
+    examples:
+    - NOVEM CAR INTERIOR DESIGN INC.
+    - AD PLASTIK TISZA KFT.
+    - MSSL ADVANCED POLYMERS S.R.O.
+    - TANNE KUNSTSTOFFTECHNIK GMBH
+    - BMW AG
+    - EISSMANN AUTOMOTIVE PELL CITY LLC
+    - Q-AUTOMOTIVE KFT.
+    - KNAUF INDUSTRIES HUNGARY KFT.
+    - EISSMANN SMP AUTOMOTIVE INTERIEUR
+    - LETOPLAST S.R.O.
+    - AUTOTEST SÜDTIROL GMBH
+    - SMP AUTOMOTIVE INTERIOR
+    - SMR AUTOMOTIVE MIRROR TECHNOLOGY
+    - COLORPROFI AUTOMOTIVE, SPO. S.R.O
+    - CHROFF KUNSTSTOFFTECHNIK GMBH
+    - ROYAL TECHNOLOGIES CORP
+    - MÜLLER - DIE LILA LOGISTIK
+    - MOTHERSON ELECTROPLATING US LLC
+    - ECKERLE SPRITZ- UND LASERSCHWEIß-
+    - JOCHEN WEISS KUNSTSTOFFTECHNIK GMBH
+    complete: false
+  ABC_INDICATOR:
+    cardinality: 3
+    examples:
+    - G
+    - O
+    - S
+    complete: true
+  COMMODITY:
+    cardinality: 20
+    examples:
+    - E000
+    - E001
+    - E002
+    - E003
+    - E004
+    - E005
+    - E006
+    - E007
+    - E008
+    - E009
+    - E010
+    - E011
+    - E012
+    - E013
+    - E014
+    - E015
+    - E016
+    - E017
+    - L000
+    - P000
+    complete: true
+  COMMODITY_DESCRIPTION:
+    cardinality: 21
+    examples:
+    - Artificial Skins, Se
+    - Audio Visual / Multi
+    - Chrome Plated Decora
+    - Decorative
+    - Functional Assemblie
+    - Illumination
+    - Insulation
+    - Leather
+    - Metal Parts / Fasten
+    - Modules
+    - Molding Plastic Part
+    - not classified articles
+    - Packaging Materials
+    - Paints
+    - Plant Purchasing
+    - Resins
+    - Sensors
+    - Subcontracting
+    - Switch
+    - Transport / Logistic
+    - Wire Harness
+    complete: true
+  KSS:
+    cardinality: 155
+    examples:
+    - DUMMY
+    - E000-00
+    - E000-01
+    - E000-02
+    - E000-03
+    - E000-04
+    - E000-06
+    - E001-01
+    - E001-02
+    - E001-03
+    - E001-04
+    - E001-05
+    - E001-06
+    - E001-07
+    - E001-08
+    - E001-09
+    - E001-10
+    - E001-11
+    - E001-12
+    - E001-13
+    - E001-14
+    - E001-15
+    - E001-16
+    - E001-17
+    - E001-18
+    - E001-19
+    - E001-22
+    - E001-23
+    - E001-24
+    - E002-00
+    - E002-01
+    - E002-02
+    - E002-03
+    - E003
+    - E003-00
+    - E003-01
+    - E003-02
+    - E003-03
+    - E003-04
+    - E003-05
+    - E003-06
+    - E003-07
+    - E003-08
+    - E003-09
+    - E003-10
+    - E003-11
+    - E003-12
+    - E003-13
+    - E004-00
+    - E004-03
+    - E004-04
+    - E004-05
+    - E005
+    - E005-00
+    - E005-01
+    - E005-02
+    - E005-03
+    - E006
+    - E006-00
+    - E006-01
+    - E006-02
+    - E007
+    - E007-00
+    - E007-01
+    - E007-02
+    - E007-03
+    - E008-00
+    - E008-01
+    - E008-02
+    - E008-03
+    - E009-00
+    - E009-02
+    - E009-03
+    - E010
+    - E010-00
+    - E010-01
+    - E010-02
+    - E010-03
+    - E010-04
+    - E010-05
+    - E010-06
+    - E010-07
+    - E010-08
+    - E010-09
+    - E010-10
+    - E010-11
+    - E011
+    - E011-00
+    - E011-01
+    - E011-02
+    - E011-03
+    - E011-04
+    - E012-00
+    - E012-01
+    - E012-02
+    - E012-03
+    - E012-04
+    - E012-06
+    - E012-10
+    - E012-12
+    - E013-00
+    - E013-01
+    - E013-02
+    - E013-04
+    - E014
+    - E014-00
+    - E014-01
+    - E014-02
+    - E014-03
+    - E014-04
+    - E014-05
+    - E014-06
+    - E014-07
+    - E014-08
+    - E014-09
+    - E014-10
+    - E014-11
+    - E014-12
+    - E015
+    - E015-00
+    - E015-01
+    - E015-02
+    - E015-03
+    - E015-04
+    - E015-05
+    - E015-06
+    - E015-07
+    - E015-08
+    - E015-09
+    - E016
+    - E016-00
+    - E016-01
+    - E016-02
+    - E016-03
+    - E016-04
+    - E016-05
+    - E016-06
+    - E016-08
+    - E016-09
+    - E016-10
+    - E016-11
+    - E017
+    - E017-00
+    - E017-01
+    - E017-02
+    - E017-03
+    - E017-04
+    - E017-05
+    - E017-06
+    - E017-10
+    - E017-11
+    - E017-12
+    - L002
+    - P020
+    - P021
+    complete: true
+  MG Description:
+    cardinality: 155
+    examples:
+    - Abdeckung
+    - Ablagefächer
+    - ABS original
+    - Airbaggewebe
+    - Alcantara
+    - Alcantara foam backing
+    - Aluminium Tape
+    - Andere Funktionsbaugruppen
+    - Antenne
+    - Artificial Leather -  Sewn
+    - Artificial Leather - Cuts / Cover
+    - Artificial Leather - Foam backing
+    - Artificial Leather - Laminated parts
+    - Artificial Leather - Rolls
+    - ASA original
+    - Ascher
+    - Assembling
+    - Auspuffendrohr
+    - Außenbeleuchtungsmodule
+    - Ausströmer
+    - Basislack
+    - Blasteile
+    - Bolzen
+    - Buchse
+    - Camera sensor
+    - Carbonteile
+    - Chemicals materials
+    - Chemikalien
+    - Chrome
+    - CHROME PLATED DECORATIVES
+    - Cleaning granulate
+    - Clips
+    - Decklack
+    - Design Folien
+    - DUMMY
+    - Elastomer
+    - Elektrische Steuermodule
+    - Emblem
+    - Extrusionsteile
+    - Federn
+    - Fensterschalter (innen)
+    - Filz
+    - Flocked
+    - Flocking
+    - Foamed parts (EPP / PS / PE)
+    - FUNCTIONAL ASSEMBLIES
+    - Getränkehalter
+    - Graupappe/Glanzpapier
+    - Grundierung
+    - Handschuhkasten
+    - Härter
+    - Heißprägefolie
+    - Holzpaletten
+    - HVAC Heizung, Lüftung und Klimatisierung
+    - ILLUMINATION
+    - Innenbeleuchtungsmodule
+    - INSULATION
+    - Isolierfolien
+    - Isolierschaum
+    - Kabelbaumanschlüsse
+    - Kabelbaum-Baugruppen
+    - Kameras
+    - Karton, Pappe
+    - Klarlack
+    - Klebebänder
+    - Klebeetiketten
+    - Klebstoffe
+    - Kratzschutzfolien
+    - Kühlerschutzgitter
+    - Kunststoffboxen
+    - Lackierte Aussenteile
+    - Lackierte Innenteile
+    - Lautsprecher-Baugruppen (komplett)
+    - Lautsprecherblende
+    - Leder - kaschierte Bauteile
+    - Leder - Nähkleider
+    - Leder - Stanzlinge
+    - Lederhäute
+    - Leiste
+    - Lichtleiter
+    - Lufttemperaturregler
+    - Masterbatch
+    - Materialgruppe Rohstoffe
+    - Metal die casting  - Zinc or Magnesium
+    - Metal die casting - Aluminium
+    - Metal die casting - Steel
+    - METAL PARTS / FASTENERS
+    - MOLDING PLASTIC PARTS
+    - Multimedia Systems
+    - Muttern
+    - Nature fiber (NF)
+    - Netze
+    - Nieten
+    - PA original
+    - PA/ABS
+    - PACKAGING MATERIALS
+    - Painting
+    - Parking sensor
+    - PC
+    - PC/ABS original
+    - PC/ASA
+    - PC/PBT
+    - Plastikfolie
+    - PMMA
+    - Polyol-Isocyanat(1C)
+    - POM
+    - PP Nachhaltig
+    - PP original
+    - Process air ,  compressed air treatment , air duct component
+    - PU Foam
+    - PVC
+    - Radar sensor
+    - Rahmen
+    - Recyclate
+    - Reflektoren
+    - RFID Label
+    - Ring
+    - Säcke
+    - Schaltmodule
+    - Schaumstoff-Folie
+    - Scheinwerferreinigungsanlage
+    - Schrauben
+    - Schutzblech
+    - Seam tape
+    - Seitengitter
+    - Sewing yarn
+    - Skidplate
+    - Special surface
+    - Spritzgussteile 1K
+    - Spritzgussteile 2K
+    - staitische Dichtungen
+    - Stamped/ Bended parts
+    - Steinwolle
+    - SWITCH
+    - Tasten
+    - techn. Klebebänder
+    - Temperature & air sensor
+    - Terminals
+    - Textilbänder
+    - Textile -  Laminated parts
+    - Textile - Cuts / Cover
+    - Textile - Foam backing
+    - Textile - Rolls
+    - Textile - Sewn
+    - Thermoplastisches Elastomer (TPE, TPV, SBS)
+    - Towing Eye Cover
+    - Türinnenbetätigung
+    - Twinblade
+    - Unterlegscheiben
+    - Verdünner
+    - Verpackungsklebebänder
+    - Warengruppe Fahrtkosten
+    - WIRE HARNESS
+    - Zentraleinheit
+    - Zuziehgriff
+    complete: true
+  CUSTOMER_NAME:
+    cardinality: 18
+    examples:
+    - Audi
+    - BMW
+    - Brose
+    - DAF
+    - Ford
+    - MAN
+    - Mercedes
+    - Mitsubishi
+    - Nedcar
+    - Opel
+    - Others
+    - Porsche
+    - Scania
+    - Seat
+    - Skoda
+    - Stellantis
+    - Volvo
+    - VW
+    complete: true
+  MAIN_COUNTRY:
+    cardinality: 12
+    examples:
+    - Bötzingen
+    - Cuprija
+    - Göttingen
+    - Meerane
+    - Neustadt
+    - Oldenburg
+    - Plant Kecskemét
+    - Plant Puebla
+    - Plant SMIA Mexico
+    - Plant Tlaxcala
+    - Plant Tuscaloosa
+    - Schierling
+    complete: true
+  ARTICLE_NO:
+    cardinality: 25285
+    examples:
+    - '36500351'
+    - '36500355'
+    - '36213838'
+    - '36213837'
+    - '36500356'
+    - '36213918'
+    - '36213839'
+    - '36500420'
+    - '36213919'
+    - '36213840'
+    - '36213841'
+    - '36213842'
+    - '36500373'
+    - '36500376'
+    - '36500377'
+    - '36550152'
+    - '36550151'
+    - '36550154'
+    - '36550153'
+    - '36500270'
+    complete: false
+  MATERIAL_DESCRIPTION:
+    cardinality: 24596
+    examples:
+    - GRUNDTRAEGER,STF,HM,CX118+AMG+MO,5402
+    - ABDECKGITTER,STF,HL,CX118AMG+MO,0102
+    - SG,EINHAENGEPROFIL,HL,TSV,AUDI316
+    - SG,EINHAENGEPROFIL,VR,TSV,AUDI316
+    - ABDECKGITTER,STF,HR,CX118AMG+MO,0202
+    - SG,EINHAENGEPROFIL,VL,TSV,AUDI316
+    - SG,EINHAENGEPROFIL,HR,TSV,AUDI316
+    - HALTER,HECKSCHALTMOD,STF,H,CX118AMG,3702
+    - SG,BLENDE,FLASCHENBODEN,VL,AUDI316
+    - SG,BLENDE,FLASCHENBODEN,VR,AUDI316
+    - SG,BLENDE,FLASCHENBODEN,HL,AUDI316
+    - SG,BLENDE,FLASCHENBODEN,HR,AUDI316
+    - ZIERLEISTE,MITTE,CX118AMG+MO,2002
+    - ZIERLEISTE,MITTE,L,CX118AMG+MO,2302
+    - ZIERLEISTE,MITTE,R,CX118AMG+MO,2402
+    - AUFN,SENSOR,APS,AUSS,STF,VR,Q3 S-LINE
+    - AUFN,SENSOR,APS,AUSS,STF,VL,Q3 S-LINE
+    - AUFN,SENSOR,APS,INN,STF,VR,Q3 S-LINE
+    - AUFN,SENSOR,APS,INN,STF,VL,Q3 S-LINE
+    - HALTER,HECKSCHALTMODUL,STF,H,CX118,1301
+    complete: false
+  PLANT_NO:
+    cardinality: 26
+    examples:
+    - '0101'
+    - '0102'
+    - '0105'
+    - '0107'
+    - 0109
+    - '0137'
+    - '0141'
+    - '0142'
+    - '0143'
+    - '0146'
+    - 0149
+    - '0151'
+    - '0161'
+    - '0163'
+    - '0166'
+    - '0550'
+    - '0562'
+    - '1053'
+    - '1054'
+    - '1255'
+    - '1257'
+    - '1258'
+    - '1267'
+    - '1456'
+    - '1565'
+    - '1668'
+    complete: true
+  PLANT_NAME:
+    cardinality: 26
+    examples:
+    - AMOZOC - AMO
+    - BÖTZINGEN - BOE
+    - CUPRIJA - CUP
+    - GÖTTINGEN - GOE
+    - KECSKEMET - KEC
+    - MC BÖBLINGEN - BOB
+    - MC BRATISLAVA - BR1
+    - MC BRATISLAVA 2 - BR2
+    - MC BRATISLAVA 3 - BR3
+    - MC EMDEN - EMD
+    - MC GYÖR 2 - GY2
+    - MC HANNOVER - HAN
+    - MC INGOLSTADT - ING
+    - MC LEIPZIG - LE1
+    - MC LEIPZIG 2 - LE2
+    - MC NECKARSULM - NEC
+    - MC OFFENAU - OFF
+    - MC PETTLING - PET
+    - MC ZWICKAU - ZWI
+    - MEERANE - MEE
+    - NEUSTADT - NEU
+    - OLDENBURG - OLD
+    - PUEBLA - PUE
+    - SCHIERLING - SCH
+    - TUSCALOOSA - TUS
+    - ZITLALTEPEC - ZIT
+    complete: true
+  SBU:
+    cardinality: 12
+    examples:
+    - '0101'
+    - '0102'
+    - '0105'
+    - '0107'
+    - 0109
+    - '0550'
+    - '1053'
+    - '1054'
+    - '1255'
+    - '1456'
+    - '1565'
+    - '1668'
+    complete: true
+  OEM:
+    cardinality: 3
+    examples:
+    - '?'
+    - J
+    - N
+    complete: true
+  FAHRZEUGTYP:
+    cardinality: 368
+    examples:
+    - D93
+    - U04
+    - E07
+    - P38
+    - D97
+    - P26
+    - A83
+    - A88
+    - C10
+    - B92
+    - P36
+    - U01
+    - P37
+    - A84
+    - E06
+    - C11
+    - C16
+    - P20
+    - C01
+    - C12
+    complete: false
+  PURCHASING_AGENT_NAME:
+    cardinality: 85
+    examples:
+    - A. Papadopoulou
+    - Abril Feregrino
+    - Achim Fricker
+    - Agnes Nagy
+    - Albert Jäntschi
+    - André Hoffmann
+    - Andreas Franzen
+    - Andreas Kienzle
+    - Arnold Jaszai
+    - Berit Liebl
+    - Bernadett Batori
+    - Blocked-S4Americas
+    - Brandy Bobo
+    - Carolina Saldivar
+    - Christian Foethke
+    - Christian Köhler
+    - Christine Gammel
+    - Commerzleasing
+    - Denis Seifert
+    - Dominic Kirkland
+    - Dragana Paunovic
+    - Emrah Tuerkdogan
+    - Fabian Kluge
+    - Fethi Lahmar
+    - Franciska Polyák
+    - Fredericka Gaines
+    - Gaelle Utard
+    - Giovanni Zepeda
+    - Glenn Moore
+    - Gukhoe Heo
+    - Gyöngyi Deczki
+    - Hagen Elsner
+    - Harald Metzger
+    - Harumi Yamada
+    - Hemalatha S. Kumar
+    - Istvan Piranszki
+    - Jahresbest.Götting
+    - Jahresbest.Meerane
+    - Jürgen Reim
+    - Kassinda Usher
+    - Kevin Backert
+    - Kevin Kraut
+    - Klaus Peter Kosek
+    - Lena Breden
+    - Magazin BOE
+    - Magazin Meerane
+    - Magdalena Strzeszy
+    - Maja Simovic
+    - mandated component
+    - Manuel Mayer
+    - Marcel Ruf
+    - Marcelo Bendazzoli
+    - Martha Teutli
+    - Maxim Latyshev
+    - Michael Landoll
+    - Michaela Repper
+    - Milan Mijatovic
+    - Milos Nedeljkovic
+    - Mrs. Zsuzsanna Buj
+    - Niklas Dick
+    - Noemi Marton
+    - Peter Filippini
+    - R. von Stünzner
+    - Richard Schönauer
+    - Rita Bauer
+    - Robert Schmieg
+    - Ruby Clara Arokiar
+    - Sandra Fischer
+    - Sathya Damodaran
+    - Stefan Kast
+    - Sven Hartmann
+    - Tamas Safrany
+    - Thomas Fuchs
+    - Thomas Kortyka
+    - Thomas Maurer
+    - Thomas Schmauser
+    - Thomas Steinle
+    - Tobias Brumloop
+    - Tomas Elis
+    - Torsten Spickmann
+    - unassigned
+    - Unbelegt
+    - Werkseinkauf
+    - Werkseinkauf Meera
+    - Werner Peter
+    complete: true
+  PURCHASING_AGENT_NO:
+    cardinality: 99
+    examples:
+    - 099
+    - DA6
+    - P01
+    - P04
+    - P05
+    - P06
+    - P07
+    - P08
+    - P09
+    - P10
+    - P12
+    - P16
+    - P17
+    - P18
+    - P19
+    - P20
+    - P22
+    - P24
+    - P25
+    - P26
+    - P27
+    - P28
+    - P29
+    - P30
+    - P33
+    - P34
+    - P36
+    - P37
+    - P38
+    - P39
+    - P41
+    - P42
+    - P43
+    - P45
+    - P46
+    - P49
+    - P52
+    - P53
+    - P54
+    - P56
+    - P58
+    - P63
+    - P64
+    - P67
+    - P68
+    - P69
+    - P70
+    - P71
+    - P72
+    - P73
+    - P75
+    - P77
+    - P78
+    - P80
+    - P83
+    - P84
+    - P90
+    - P91
+    - P92
+    - P93
+    - P94
+    - P95
+    - P96
+    - P99
+    - PA1
+    - PA2
+    - PA3
+    - PA4
+    - PA5
+    - PA9
+    - PB1
+    - PB3
+    - PB4
+    - PB5
+    - PB6
+    - PB7
+    - PB8
+    - PB9
+    - PK2
+    - PK3
+    - PK4
+    - PK5
+    - PK6
+    - PK7
+    - PK9
+    - PM0
+    - PM5
+    - PM7
+    - PM8
+    - PS1
+    - PS3
+    - PS4
+    - PU1
+    - PU3
+    - PU4
+    - PU5
+    - PU6
+    - PU7
+    - PU8
+    complete: true
+  MATERIAL_TYPE:
+    cardinality: 5
+    examples:
+    - FERT
+    - HALB
+    - HAWA
+    - ROH
+    - UNBW
+    complete: true
+  OEM_PART_NUMBER:
+    cardinality: 17293
+    examples:
+    - A1188855402
+    - A1188850102
+    - 89A.833.691
+    - 89A.831.692.A
+    - A1188850202
+    - 89A.831.691.A
+    - 89A.833.692
+    - A1188853702
+    - 89A.959.521
+    - 89A.959.522
+    - 89A.959.523
+    - 89A.959.524
+    - xxx
+    - A1188852002
+    - A1188852302
+    - A1188852402
+    - '-'
+    - 83F.807.578
+    - 83A.919.268.A
+    - 83A.919.267.A
+    complete: false
+  INGREDIENT:
+    cardinality: 3162
+    examples:
+    - /-
+    - ASA/PC Mablex SA 966 nach TL52652
+    - PP/EP(D)M TD10-/-
+    - PMMA -/-
+    - Starex SR-0320 Li Ma1353 schwarz
+    - Zierleiste HOLZ EICHE GRAU OFFENPORIG
+    - Inspire PP TF 1305 natur+Masterbatch Soul CC UV
+    - ASA/-
+    - Abdeckblende loudspeaker Zierleiste (Dummy)
+    - Material Mix- -/-
+    - Zierleiste HOLZ NUSSBAUM BRAUN OFFENP
+    - PP/EP(D)M TD20-/-
+    - Bayblend T65 XF
+    - PP TD20-/-
+    - Finalloy EBP-830/1
+    - Zierleiste HOLZ KLAVIERLACK SCHWARZ GLAENZEND
+    - Luran S778 T SPF 30 (ASA 4W3)
+    - Linde Braun glaenzend 04H
+    - Zierleiste ALUMINIUM 6-ECK
+    - Zierleiste Carbon AMG
+    complete: false
+  PROJECT_NAME:
+    cardinality: 361
+    examples:
+    - Daimler BR167 TSV
+    - ASUVe TSV
+    - Daimler CX118 AMG
+    - Porsche 992 PA SDP/GTS
+    - Daimler C 118 STF
+    - Porsche J1 Basis/TOP
+    - Audi Q3 Basis
+    - Audi Q3 NF S-Line STF
+    - BMW U11/U10
+    - BMW G80/81 M3 + G82/83 M4
+    - Porsche Macan NF
+    - Audi Q3 SB (Q4)
+    - Porsche Panamera G3
+    - Audi Q8 Basis
+    - Daimler BR 167 Maybach
+    - BMW G70
+    - BMW G2021 LCI MSP
+    - Porsche Macan
+    - BMW G22/23 AG STF front, side skirts
+    - BMW G60
+    complete: false
+  COUNTRY_OF_ORIGIN:
+    cardinality: 47
+    examples:
+    - AE
+    - AT
+    - BA
+    - BE
+    - BG
+    - CA
+    - CH
+    - CN
+    - CZ
+    - DE
+    - DK
+    - EG
+    - ES
+    - FI
+    - FR
+    - GB
+    - HK
+    - HR
+    - HU
+    - ID
+    - IE
+    - IL
+    - IN
+    - IT
+    - JP
+    - KR
+    - LT
+    - LU
+    - MA
+    - MK
+    - MX
+    - NL
+    - 'NO'
+    - PL
+    - PT
+    - RO
+    - RS
+    - SE
+    - SI
+    - SK
+    - TH
+    - TN
+    - TR
+    - TW
+    - UA
+    - US
+    - VN
+    complete: true
+  MAIN_ACCOUNT:
+    cardinality: 52
+    examples:
+    - '0000130100'
+    - '0000130110'
+    - '0000130130'
+    - '0000130140'
+    - '0000130150'
+    - '0000130160'
+    - 0000130180
+    - 0000130190
+    - '0000130400'
+    - '0000130410'
+    - '0000130420'
+    - '0000130430'
+    - '0000130440'
+    - '0000200200'
+    - '0000200202'
+    - '0000600000'
+    - '0000600004'
+    - '0000600024'
+    - '0000600064'
+    - 0000600084
+    - '0000600100'
+    - '0000600104'
+    - '0000600120'
+    - '0000600124'
+    - '0000600131'
+    - '0000600160'
+    - '0000600164'
+    - '0000600171'
+    - 0000600184
+    - '0000600211'
+    - '0000600240'
+    - '0000600244'
+    - '0000600260'
+    - '0000600264'
+    - 0000600280
+    - 0000600284
+    - 0000600291
+    - '0000600300'
+    - '0000600304'
+    - '0000600320'
+    - '0000600324'
+    - 0000600800
+    - 0000600850
+    - 0000600915
+    - 0000600916
+    - 0000600928
+    - '0000610004'
+    - '0000610104'
+    - 0000610109
+    - '0000624203'
+    - '0000624400'
+    - 0000678202
+    complete: true
+  MAIN_ACCOUNT_DESCRIPTION:
+    cardinality: 46
+    examples:
+    - A./E. Preisd. aus WE/RE Zub. Textiles/Foils
+    - A./E. Preisdifferenzen aus WE/RE Farb./Pigm./Stab.
+    - A./E. Preisdifferenzen aus WE/RE Hawa
+    - A./E. Preisdifferenzen aus WE/RE Lacke/Lösungsm.
+    - A./E. Preisdifferenzen aus WE/RE PVC
+    - A./E. Preisdifferenzen aus WE/RE Regenerate
+    - A./E. Preisdifferenzen aus WE/RE SMC
+    - A./E. Preisdifferenzen aus WE/RE Thermoplaste
+    - A./E. Preisdifferenzen aus WE/RE Verpackung
+    - A./E. Preisdifferenzen WE/Bestellungen Fertigteile
+    - A./E. Preisdifferenzen WE/Bestellungen Halbteile
+    - A/E Preisdiff. aus WE/RE Zub.Metal/Saf./Fast.Elem.
+    - A/E Preisdiff. aus WE/RE Zubehör Decorative Parts
+    - A/E Preisdiff. aus WE/RE Zubehör Plastic Parts
+    - A/E Preisdiff.WE/RE Zub. Electric/Electronic Parts
+    - Bestand Farbe, Pigmente, Stabilisatoren
+    - Bestand Handelsware
+    - Bestand Lacke, Lösungsmittel
+    - Bestand PVC
+    - Bestand Regenerate
+    - Bestand SMC
+    - Bestand Thermoplaste
+    - Bestand Verpackung
+    - Bestand Zubehör Decorative Parts
+    - Bestand Zubehör Electric/Electronic Parts
+    - Bestand Zubehör Metal/Saftety/Fast.Elem.
+    - Bestand Zubehör Plastic Parts
+    - Bestand Zubehör Textiles/Foils
+    - Bestandsveränderung Fertigteile
+    - Fremde Lohnarbeiten
+    - Fremdleistung Modulcenter
+    - Fremdleistungen Musterung/Musterteile
+    - Materialaufwand Lacke/Lösungsmittel manuell
+    - Materialaufwand Verpackung manuell
+    - Materialaufwand Zubehör Plastic Parts manuell
+    - Verbindlichkeiten aus Konsignationslager
+    - Verbrauch Farb./Pigm./Stab.
+    - Verbrauch Lacke/Lösungsmittel
+    - Verbrauch Thermoplaste
+    - Verbrauch Verpackung
+    - Verbrauch Zub. Textiles/Foils
+    - Verbrauch Zubehör Decorative Parts
+    - Verbrauch Zubehör Electric/Electronic Parts
+    - Verbrauch Zubehör Metal/Safety/Fast. Elements
+    - Verbrauch Zubehör Plastic Parts
+    - We/Re-Verrechnung
+    complete: true
+  INVOICE_NO:
+    cardinality: 228485
+    examples:
+    - 6000219
+    - 6000206
+    - 6000060
+    - 6000483
+    - 6000227
+    - 6000221
+    - 6001008
+    - 6001009
+    - 6000481
+    - 6000864
+    - 6000226
+    - 6000961
+    - 6000223
+    - 6000224
+    - 6000054
+    - 6000892
+    - 6000419
+    - 6000197
+    - 6001083
+    - 6000694
+    complete: false
+  INVOICE_POS_NO:
+    cardinality: 997
+    examples:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 21
+    complete: false
+  AMOUNT:
+    cardinality: 227197
+    examples:
+    - 1.17
+    - 0.58
+    - 0.29
+    - 1.16
+    - 0.77
+    - 0.43
+    - 1.48
+    - 1.21
+    - 1.82
+    - 0.64
+    - 2.74
+    - 1.8
+    - 0.6
+    - 1.09
+    - 1.42
+    - 3.18
+    - 1.0
+    - 1.52
+    - 2.06
+    - 0.21
+    complete: false
+  EXCH_CURRENCY:
+    cardinality: 4
+    examples:
+    - EUR
+    - MXN
+    - RSD
+    - USD
+    complete: true
+  G_JAHR:
+    cardinality: 2
+    examples:
+    - '2025'
+    - '2026'
+    complete: true
+  EXCH_RATE:
+    cardinality: 7
+    examples:
+    - 1.0
+    - 1.0467
+    - 1.0939
+    - 19.633
+    - 22.1594
+    - 118.3248
+    - 118.893
+    complete: true
+  QUANTITY:
+    cardinality: 13259
+    examples:
+    - 1.0
+    - 2.0
+    - 0.0
+    - 3.0
+    - 4.0
+    - 5.0
+    - 8.0
+    - 10.0
+    - 6.0
+    - 20.0
+    - 24.0
+    - 12.0
+    - 18.0
+    - 40.0
+    - 30.0
+    - 9.0
+    - 22.0
+    - 11.0
+    - 7.0
+    - 16.0
+    complete: false
+  VCHR_LOC_CURRENCY_AMT:
+    cardinality: 153152
+    examples:
+    - 1.17
+    - 0.58
+    - 0.0
+    - 0.29
+    - 1.16
+    - 0.77
+    - 0.43
+    - 1.48
+    - 1.21
+    - 1.82
+    - 0.64
+    - 2.74
+    - 1.8
+    - 1.0
+    - 0.6
+    - 1.09
+    - 1.42
+    - 3.18
+    - 1.52
+    - 2.06
+    complete: false
+  VCHR_LOC_CURRENCY:
+    cardinality: 10
+    examples:
+    - CNY
+    - CZK
+    - EUR
+    - HUF
+    - JPY
+    - MXN
+    - PLN
+    - RSD
+    - SEK
+    - USD
+    complete: true
+  INVOICE_DATE:
+    cardinality: 668
+    examples:
+    - '2025-09-30 00:00:00'
+    - '2024-09-30 00:00:00'
+    - '2024-10-31 00:00:00'
+    - '2025-07-31 00:00:00'
+    - '2025-03-31 00:00:00'
+    - '2024-07-31 00:00:00'
+    - '2024-06-30 00:00:00'
+    - '2025-10-31 00:00:00'
+    - '2025-02-28 00:00:00'
+    - '2024-11-30 00:00:00'
+    - '2024-04-30 00:00:00'
+    - '2024-08-31 00:00:00'
+    - '2025-04-30 00:00:00'
+    - '2025-06-30 00:00:00'
+    - '2025-01-31 00:00:00'
+    - '2025-05-31 00:00:00'
+    - '2024-05-31 00:00:00'
+    - '2025-11-30 00:00:00'
+    - '2025-08-31 00:00:00'
+    - '2024-12-31 00:00:00'
+    complete: false
+  POSTAL_KEY:
+    cardinality: 10
+    examples:
+    - '40'
+    - '50'
+    - '81'
+    - '83'
+    - '86'
+    - '89'
+    - '91'
+    - '93'
+    - '96'
+    - '99'
+    complete: true
+  ORDER_NO:
+    cardinality: 24426
+    examples:
+    - '5500182099'
+    - '5500182095'
+    - '5500182097'
+    - '5500182093'
+    - '5500215650'
+    - '5500215651'
+    - '5500212925'
+    - '5500212375'
+    - '5500212367'
+    - '5500212950'
+    - '5500212369'
+    - '5500215655'
+    - '5500215654'
+    - '5500212940'
+    - '5500212380'
+    - '5500172233'
+    - '5500174891'
+    - '5500216477'
+    - '5500215661'
+    - '5500215660'
+    complete: false
+  REFERENZBELEG:
+    cardinality: 388341
+    examples:
+    - K2-385-386/2025
+    - K2-330-331/2025
+    - K2-256-257/2025
+    - K2-801,803/2024
+    - K2-836,37/2024
+    - K2-281-282/2025
+    - K2-427-428/2025
+    - K2-693,694/2024
+    - K2-190-200/2025
+    - K2-937-940/2024
+    - K2-904-905/2024
+    - K2-983-984/2024
+    - K2-744,745/2024
+    - K2-157-158/2025
+    - K2-865,866/2024
+    - K2-228-229/2025
+    - K2-450-451/2025
+    - K2-351-352/2025
+    - '4073040343'
+    - 4073040620-21
+    complete: false
+  PURCHASE_ORG:
+    cardinality: 7
+    examples:
+    - OA04
+    - OA09
+    - OA10
+    - OA12
+    - OA14
+    - OA15
+    - OA16
+    complete: true
+  LIFETIME_INDICATOR:
+    cardinality: 3
+    examples:
+    - J
+    - N
+    - Y
+    complete: true
+  ORG_NEGOTIATED_PRICE:
+    cardinality: 13635
+    examples:
+    - 38.52
+    - 21.44
+    - 91.19
+    - 0.0
+    - 159.0
+    - 29.12
+    - 148.47
+    - 60.08
+    - 60.09
+    - 27.57
+    - 22.14
+    - 996.0
+    - 1080.0
+    - 109.48
+    - 117.41
+    - 117.4
+    - 2398.0
+    - 362.0
+    - 99.6
+    - 152.2
+    complete: false
+  PROPOSED_CATEGORY:
+    cardinality: 3
+    examples:
+    - HCC
+    - LCC
+    - MCC
+    complete: true
+  _migration_batch:
+    cardinality: 22
+    examples:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 21
+    complete: true
+  _migrated_at:
+    cardinality: 1313
+    examples:
+    - '2026-04-15 17:40:29'
+    - '2026-04-15 17:38:48'
+    - '2026-04-15 17:47:45'
+    - '2026-04-15 17:38:11'
+    - '2026-04-15 17:47:17'
+    - '2026-04-15 17:40:59'
+    - '2026-04-15 17:32:55'
+    - '2026-04-15 17:28:06'
+    - '2026-04-15 17:34:45'
+    - '2026-04-15 17:31:15'
+    - '2026-04-15 17:35:38'
+    - '2026-04-15 17:33:00'
+    - '2026-04-15 17:33:32'
+    - '2026-04-15 17:32:11'
+    - '2026-04-15 17:44:22'
+    - '2026-04-15 17:33:53'
+    - '2026-04-15 17:42:40'
+    - '2026-04-15 17:48:29'
+    - '2026-04-15 17:43:39'
+    - '2026-04-15 17:38:05'
+    complete: false

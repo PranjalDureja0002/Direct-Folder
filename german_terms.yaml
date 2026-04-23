@@ -1,0 +1,101 @@
+# German/SAP term mappings for NL2SQL
+# Maps German and SAP-specific column names to English equivalents
+
+german_columns:
+  FAHRZEUGTYP:
+    english: "Vehicle Type"
+    german: "Fahrzeugtyp"
+    description: "Type of vehicle/automobile - project categorization"
+    synonyms:
+      - vehicle type
+      - car type
+      - vehicle model
+      - car model
+      - automobile type
+      - project
+    notes: "Automotive industry classification"
+
+# SAP-specific terms
+sap_terms:
+  MATERIAL_TYPE:
+    sap_code: "MTART"
+    description: "SAP Material Type"
+    common_values:
+      ROH: "Raw Material"
+      HALB: "Semi-Finished Product"
+      FERT: "Finished Product"
+      HIBE: "Operating Supplies"
+
+  PLANT_NO:
+    sap_code: "WERKS"
+    description: "SAP Plant Code"
+    notes: "4-character plant identifier"
+
+  SUPPLIER_NO:
+    sap_code: "LIFNR"
+    description: "SAP Vendor Number"
+    notes: "10-character vendor identifier"
+
+  COMMODITY:
+    sap_code: "MATKL"
+    description: "Material Group (high level)"
+    notes: "Commodity classification"
+
+  KSS:
+    sap_code: "MATKL"
+    description: "Material Group (detail level)"
+    notes: "Sub-category of commodity"
+
+  INVOICE_DATE:
+    sap_code: "BUDAT"
+    description: "Posting Date"
+    notes: "Invoice/document posting date"
+
+# Industry-specific terms (automotive)
+automotive_terms:
+  OEM:
+    full_form: "Original Equipment Manufacturer"
+    description: "Car manufacturer (e.g., BMW, VW, Toyota)"
+    synonyms:
+      - car maker
+      - automaker
+      - automotive manufacturer
+      - vehicle manufacturer
+
+  Tier1:
+    description: "First-tier supplier to OEM"
+    notes: "Motherson is a Tier-1 supplier"
+
+  Tier2:
+    description: "Supplier to Tier-1 companies"
+    notes: "Second level in supply chain"
+
+# Translation lookup (for bidirectional mapping)
+translations:
+  # German to English
+  fahrzeugtyp: "vehicle type"
+  land: "country"
+  lieferant: "supplier"
+  werk: "plant"
+  menge: "quantity"
+  betrag: "amount"
+  waehrung: "currency"
+  datum: "date"
+
+  # English to German (for completeness)
+  vehicle_type: "Fahrzeugtyp"
+  country: "Land"
+  supplier: "Lieferant"
+  plant: "Werk"
+  quantity: "Menge"
+  amount: "Betrag"
+  currency: "Währung"
+  date: "Datum"
+
+# Column name explanations (cryptic names decoded)
+column_explanations:
+  FAHRZEUGTYP: "German term for vehicle type - used as project categorization"
+  Com_Supplier: "Commodity code assigned to supplier"
+  Com_Desr_Supp: "Commodity description for supplier categorization"
+  EXCH_CURRENCY: "Exchange/document currency code"
+  EXCH_RATE: "Exchange rate used for currency conversion"

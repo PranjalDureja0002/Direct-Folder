@@ -1,0 +1,100 @@
+view_name: dbo.VW_DIRECT_SPEND_ALL
+total_rows: 3838359
+column_count: 61
+date_ranges:
+  INVOICE_DATE:
+    min: '2024-04-01 00:00:00'
+    max: '2026-01-31 00:00:00'
+    distinct_dates: 668
+  _migrated_at:
+    min: '2026-04-15 17:27:21'
+    max: '2026-04-15 17:49:13'
+    distinct_dates: 1313
+numeric_stats:
+  AMOUNT:
+    min: -2913189.38
+    max: 2942643.6
+    avg: 598.58
+    sum: 2297549211.21
+    stddev: 4718.45
+  EXCH_RATE:
+    min: 1.0
+    max: 118.893
+    avg: 1.77
+    sum: 6784233.74
+    stddev: 7.14
+  ORG_NEGOTIATED_PRICE:
+    min: 0.0
+    max: 374100.0
+    avg: 1602.92
+    sum: 6152586991.04
+    stddev: 4622.27
+column_groups:
+  date_columns:
+  - INVOICE_DATE
+  - _migrated_at
+  numeric_columns:
+  - VENDOR_NO
+  - INVOICE_NO
+  - INVOICE_POS_NO
+  - AMOUNT
+  - EXCH_RATE
+  - QUANTITY
+  - VCHR_LOC_CURRENCY_AMT
+  - ORG_NEGOTIATED_PRICE
+  - RN
+  - _migration_batch
+  text_columns:
+  - REGION
+  - INCO_TERM
+  - TERMS_OF_PAYMENT
+  - Com. Supplier
+  - Comm supplier desc.
+  - TERMS_OF_PAYMENT_DESCRIPTION
+  - VENDOR_NAME
+  - COUNTRY
+  - NATION
+  - ACCOUNT_GROUP
+  - SUPP_DUNS_NO
+  - PARENT_DUNS
+  - PARENT_SUPPLIER_NAME
+  - SUPPLIER_NO
+  - SUPPLIER_NAME
+  - ABC_INDICATOR
+  - COMMODITY
+  - COMMODITY_DESCRIPTION
+  - KSS
+  - MG Description
+  - CODE
+  - CUSTOMER
+  - CUSTOMER_NAME
+  - MAIN_COUNTRY
+  - ARTICLE_NO
+  - MATERIAL_DESCRIPTION
+  - PLANT_NO
+  - PLANT_NAME
+  - SBU
+  - OEM
+  - FAHRZEUGTYP
+  - PURCHASING_AGENT_NAME
+  - PURCHASING_AGENT_NO
+  - MATERIAL_TYPE
+  - OEM_PART_NUMBER
+  - INGREDIENT
+  - PROJECT_NAME
+  - COUNTRY_OF_ORIGIN
+  - MAIN_ACCOUNT
+  - MAIN_ACCOUNT_DESCRIPTION
+  - EXCH_CURRENCY
+  - G_JAHR
+  - VCHR_LOC_CURRENCY
+  - POSTAL_KEY
+  - ORDER_NO
+  - REFERENZBELEG
+  - PURCHASE_ORG
+  - LIFETIME_INDICATOR
+  - PROPOSED_CATEGORY
+data_freshness:
+  latest_record_date: '2026-01-31 00:00:00'
+  days_since_latest: 80
+  reference_column: INVOICE_DATE

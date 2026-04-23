@@ -1,0 +1,2366 @@
+metadata:
+  version: '1.0'
+  count: 140
+examples:
+- id: ex001
+  question: What is the total spend?
+  sql: 'SELECT SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    '
+  intent: aggregation
+  entities: []
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+- id: ex002
+  question: How much did we spend in 2024?
+  sql: 'SELECT SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    '
+  intent: aggregation_filtered
+  entities:
+  - year
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+- id: ex003
+  question: Total spend by supplier
+  sql: 'SELECT SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+- id: ex004
+  question: Spend by region in 2024
+  sql: 'SELECT REGION, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY REGION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped_filtered
+  entities:
+  - region
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+- id: ex005
+  question: What is the total expenditure by commodity category?
+  sql: 'SELECT COMMODITY_DESCRIPTION, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY COMMODITY_DESCRIPTION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 2
+  note: expenditure -> AMOUNT
+  difficulty: easy
+- id: ex006
+  question: Top 10 suppliers by spend
+  sql: 'SELECT TOP 10 SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: top_n
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex007
+  question: Top 5 vendors by cost in 2024
+  sql: 'SELECT TOP 5 SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: top_n_filtered
+  entities:
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  note: vendors -> SUPPLIER_NAME, cost -> AMOUNT
+  difficulty: medium
+- id: ex008
+  question: What are the top 10 commodities by expenditure?
+  sql: 'SELECT TOP 10 COMMODITY_DESCRIPTION, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY COMMODITY_DESCRIPTION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: top_n
+  entities:
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex009
+  question: How many suppliers do we have?
+  sql: 'SELECT COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    '
+  intent: count_distinct
+  entities:
+  - supplier
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 1
+  difficulty: easy
+- id: ex010
+  question: Number of suppliers by region
+  sql: 'SELECT REGION, COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY REGION
+
+    ORDER BY SUPPLIER_COUNT DESC
+
+    '
+  intent: count_grouped
+  entities:
+  - region
+  - supplier
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex011
+  question: How many invoices per plant in 2024?
+  sql: 'SELECT PLANT_NAME, COUNT(DISTINCT INVOICE_NO) AS INVOICE_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY PLANT_NAME
+
+    ORDER BY INVOICE_COUNT DESC
+
+    '
+  intent: count_grouped_filtered
+  entities:
+  - plant
+  - year
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex012
+  question: Spend trend by year
+  sql: 'SELECT YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY YEAR(INVOICE_DATE)
+
+    ORDER BY YEAR
+
+    '
+  intent: trend
+  entities:
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex013
+  question: Compare 2023 vs 2024 spend by region
+  sql: 'SELECT REGION, YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) IN (2023, 2024)
+
+    GROUP BY REGION, YEAR(INVOICE_DATE)
+
+    ORDER BY REGION, YEAR
+
+    '
+  intent: comparison
+  entities:
+  - region
+  - year
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex014
+  question: Total spend by supplier and commodity
+  sql: 'SELECT SUPPLIER_NAME, COMMODITY_DESCRIPTION, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME, COMMODITY_DESCRIPTION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: multi_dimension
+  entities:
+  - supplier
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex015
+  question: Top 10 supplier-plant combinations by spend in 2024
+  sql: 'SELECT TOP 10 SUPPLIER_NAME, PLANT_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY SUPPLIER_NAME, PLANT_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: multi_dimension_top_n
+  entities:
+  - supplier
+  - plant
+  - year
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex016
+  question: Spend from Iberica region
+  sql: 'SELECT SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION = ''Iberica''
+
+    '
+  intent: filtered_aggregation
+  entities:
+  - region
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+- id: ex017
+  question: Top 5 suppliers in North America region
+  sql: 'SELECT TOP 5 SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION = ''North America''
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: top_n_filtered
+  entities:
+  - region
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex018
+  question: Average transaction amount by supplier
+  sql: 'SELECT SUPPLIER_NAME, AVG(AMOUNT) AS AVG_AMOUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY AVG_AMOUNT DESC
+
+    '
+  intent: average_grouped
+  entities:
+  - supplier
+  aggregations:
+  - AVG
+  complexity: 2
+  difficulty: medium
+- id: ex019
+  question: Spend by fiscal year
+  sql: 'SELECT YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY YEAR(INVOICE_DATE)
+
+    ORDER BY YEAR
+
+    '
+  intent: trend
+  entities:
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  note: fiscal year -> EXTRACT(YEAR FROM INVOICE_DATE)
+  difficulty: easy
+- id: ex020
+  question: Spend by vehicle type
+  sql: 'SELECT FAHRZEUGTYP, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE FAHRZEUGTYP IS NOT NULL
+
+    GROUP BY FAHRZEUGTYP
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - vehicle_type
+  aggregations:
+  - SUM
+  complexity: 2
+  note: vehicle type -> FAHRZEUGTYP
+  difficulty: medium
+- id: ex021
+  question: Show spend trend over last 4 years
+  sql: 'SELECT TOP 4 YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= DATEADD(MONTH, -48, GETDATE())
+
+    GROUP BY YEAR(INVOICE_DATE)
+
+    ORDER BY YEAR DESC
+
+    '
+  intent: time_series
+  entities:
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex022
+  question: Compare this year vs last year spend by supplier
+  sql: 'SELECT SUPPLIER_NAME, YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) IN (YEAR(GETDATE()), YEAR(GETDATE()) - 1)
+
+    GROUP BY SUPPLIER_NAME, YEAR(INVOICE_DATE)
+
+    ORDER BY SUPPLIER_NAME, YEAR
+
+    '
+  intent: comparison
+  entities:
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex023
+  question: Monthly spend breakdown for 2024
+  sql: 'SELECT MONTH(INVOICE_DATE) AS MONTH, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY MONTH(INVOICE_DATE)
+
+    ORDER BY MONTH
+
+    '
+  intent: time_series
+  entities:
+  - year
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex024
+  question: Average spend per supplier per region
+  sql: 'SELECT SUPPLIER_NAME, REGION, AVG(AMOUNT) AS AVG_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME, REGION
+
+    ORDER BY AVG_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - supplier
+  - region
+  aggregations:
+  - AVG
+  complexity: 2
+  difficulty: medium
+- id: ex025
+  question: Top 3 suppliers by spend in each plant
+  sql: 'SELECT PLANT_NAME, SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY PLANT_NAME, SUPPLIER_NAME
+
+    HAVING SUM(AMOUNT) > (SELECT AVG(AMOUNT) FROM DBO.VW_DIRECT_SPEND_ALL)
+
+    ORDER BY PLANT_NAME, TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped_filtered
+  entities:
+  - plant
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex026
+  question: Spend variance by commodity category
+  sql: "SELECT COMMODITY_DESCRIPTION, MIN(AMOUNT) AS MIN_SPEND, MAX(AMOUNT) AS MAX_SPEND,\n       AVG(AMOUNT) AS AVG_SPEND, STDEV(AMOUNT) AS VARIANCE\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY COMMODITY_DESCRIPTION\nORDER BY VARIANCE DESC\n"
+  intent: aggregation_grouped
+  entities:
+  - commodity
+  aggregations:
+  - MIN
+  - MAX
+  - AVG
+  - STDDEV
+  complexity: 3
+  difficulty: hard
+- id: ex027
+  question: Suppliers in North region with spend > 1M in 2024
+  sql: 'SELECT SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION = ''North'' AND YEAR(INVOICE_DATE) = 2024
+
+    GROUP BY SUPPLIER_NAME
+
+    HAVING SUM(AMOUNT) > 1000000
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: filtered_aggregation
+  entities:
+  - region
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex028
+  question: Plants with more than 50 suppliers in automotive category
+  sql: 'SELECT PLANT_NAME, COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE COMMODITY LIKE ''AUTO%''
+
+    GROUP BY PLANT_NAME
+
+    HAVING COUNT(DISTINCT SUPPLIER_NO) > 50
+
+    ORDER BY SUPPLIER_COUNT DESC
+
+    '
+  intent: filtered_aggregation
+  entities:
+  - plant
+  - supplier
+  - commodity
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 3
+  difficulty: hard
+- id: ex029
+  question: Commodities with YoY growth > 10%
+  sql: "SELECT COMMODITY_DESCRIPTION,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) AS SPEND_2024,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) AS SPEND_2023\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) IN (2023, 2024)\nGROUP BY COMMODITY_DESCRIPTION\nHAVING SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) >\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) * 1.1\nORDER BY SPEND_2024 DESC\n"
+  intent: comparison
+  entities:
+  - commodity
+  - year
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+- id: ex030
+  question: How many unique suppliers do we have per region
+  sql: 'SELECT REGION, COUNT(DISTINCT SUPPLIER_NO) AS UNIQUE_SUPPLIERS
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY REGION
+
+    ORDER BY UNIQUE_SUPPLIERS DESC
+
+    '
+  intent: count_grouped
+  entities:
+  - region
+  - supplier
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex031
+  question: Count of transactions by month
+  sql: 'SELECT MONTH(INVOICE_DATE) AS MONTH, COUNT(*) AS TRANSACTION_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY MONTH(INVOICE_DATE)
+
+    ORDER BY MONTH
+
+    '
+  intent: count_grouped
+  entities:
+  - month
+  aggregations:
+  - COUNT
+  complexity: 2
+  difficulty: medium
+- id: ex032
+  question: Number of commodities per supplier
+  sql: 'SELECT SUPPLIER_NAME, COUNT(DISTINCT COMMODITY) AS COMMODITY_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY COMMODITY_COUNT DESC
+
+    '
+  intent: count_grouped
+  entities:
+  - supplier
+  - commodity
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex033
+  question: Suppliers with spend above average
+  sql: "SELECT SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY SUPPLIER_NAME\nHAVING SUM(AMOUNT) > (SELECT AVG(TOTAL_SPEND) FROM\n        (SELECT SUPPLIER_NO, SUM(AMOUNT) AS TOTAL_SPEND\n         FROM DBO.VW_DIRECT_SPEND_ALL GROUP BY SUPPLIER_NO) AS T)\nORDER BY TOTAL_SPEND DESC\n"
+  intent: comparison
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  - AVG
+  complexity: 3
+  difficulty: hard
+- id: ex034
+  question: Plants with highest supplier count vs lowest
+  sql: 'SELECT PLANT_NAME, COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY PLANT_NAME
+
+    ORDER BY SUPPLIER_COUNT DESC
+
+    '
+  intent: comparison
+  entities:
+  - plant
+  - supplier
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex035
+  question: Top performing regions by spend efficiency
+  sql: "SELECT REGION, SUM(AMOUNT) AS TOTAL_SPEND, COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT,\n       SUM(AMOUNT) / COUNT(DISTINCT SUPPLIER_NO) AS EFFICIENCY\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY REGION\nORDER BY EFFICIENCY DESC\n"
+  intent: comparison
+  entities:
+  - region
+  - supplier
+  aggregations:
+  - SUM
+  - COUNT DISTINCT
+  complexity: 3
+  difficulty: hard
+- id: ex036
+  question: Minimum spend transaction per commodity
+  sql: 'SELECT COMMODITY_DESCRIPTION, MIN(AMOUNT) AS MIN_AMOUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY COMMODITY_DESCRIPTION
+
+    ORDER BY MIN_AMOUNT
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - commodity
+  aggregations:
+  - MIN
+  complexity: 2
+  difficulty: easy
+- id: ex037
+  question: Maximum single transaction by region
+  sql: 'SELECT REGION, MAX(AMOUNT) AS MAX_TRANSACTION
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY REGION
+
+    ORDER BY MAX_TRANSACTION DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - region
+  aggregations:
+  - MAX
+  complexity: 2
+  difficulty: easy
+- id: ex038
+  question: Suppliers with only one commodity
+  sql: 'SELECT SUPPLIER_NAME, COUNT(DISTINCT COMMODITY) AS COMMODITY_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY SUPPLIER_NAME
+
+    HAVING COUNT(DISTINCT COMMODITY) = 1
+
+    ORDER BY SUPPLIER_NAME
+
+    '
+  intent: filtered_aggregation
+  entities:
+  - supplier
+  - commodity
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+- id: ex039
+  question: Plants that do business with all major suppliers
+  sql: 'SELECT PLANT_NAME, COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY PLANT_NAME
+
+    HAVING COUNT(DISTINCT SUPPLIER_NO) = (SELECT COUNT(DISTINCT SUPPLIER_NO) FROM DBO.VW_DIRECT_SPEND_ALL)
+
+    ORDER BY PLANT_NAME
+
+    '
+  intent: comparison
+  entities:
+  - plant
+  - supplier
+  aggregations:
+  - COUNT DISTINCT
+  complexity: 3
+  difficulty: hard
+- id: ex040
+  question: Regions ranked by total transaction count
+  sql: 'SELECT REGION, COUNT(*) AS TRANSACTION_COUNT, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY REGION
+
+    ORDER BY TRANSACTION_COUNT DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - region
+  aggregations:
+  - COUNT
+  - SUM
+  complexity: 2
+  difficulty: medium
+- id: ex041
+  question: Top 3 suppliers by spend in each region
+  sql: "SELECT REGION, SUPPLIER_NAME, TOTAL_SPEND\nFROM (\n  SELECT REGION, SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND,\n         ROW_NUMBER() OVER (PARTITION BY REGION ORDER BY SUM(AMOUNT) DESC) AS rank_in_region\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  GROUP BY REGION, SUPPLIER_NAME\n) ranked\nWHERE rank_in_region <= 3\nORDER BY REGION, rank_in_region\n"
+  intent: top_n_by_partition
+  entities:
+  - region
+  - supplier
+  aggregations:
+  - SUM
+  - ROW_NUMBER
+  pattern_type: window_function
+  complexity: 4
+  difficulty: hard
+  note: ROW_NUMBER() OVER (PARTITION BY...) ranks within each partition. Use WHERE clause to filter ranked results.
+- id: ex042
+  question: Which suppliers account for top 80% of spend?
+  sql: "WITH supplier_spend AS (\n  SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  GROUP BY SUPPLIER_NAME\n),\nsupplier_ranked AS (\n  SELECT SUPPLIER_NAME, total_spend,\n         PERCENT_RANK() OVER (ORDER BY total_spend DESC) AS percentile\n  FROM supplier_spend\n)\nSELECT SUPPLIER_NAME, total_spend\nFROM supplier_ranked\nWHERE percentile <= 0.20\nORDER BY total_spend DESC\n"
+  intent: threshold_cumulative
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  - PERCENT_RANK
+  pattern_type: cumulative_window
+  complexity: 4
+  difficulty: hard
+  note: PERCENT_RANK() gives 0.0-1.0 percentile. <= 0.20 means top 80% (100% - 80% = 20%). Use CTE for clarity. Window function orders DESC to rank high spenders first.
+- id: ex043
+  question: What is the tail spend (bottom 10% of suppliers)?
+  sql: "SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE SUPPLIER_NAME IN (\n  SELECT SUPPLIER_NAME FROM (\n    SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n           PERCENT_RANK() OVER (ORDER BY SUM(AMOUNT)) AS pct_rank\n    FROM DBO.VW_DIRECT_SPEND_ALL\n    GROUP BY SUPPLIER_NAME\n  ) WHERE pct_rank <= 0.10\n)\nGROUP BY SUPPLIER_NAME\nORDER BY total_spend ASC\n"
+  intent: tail_spend
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  - PERCENT_RANK
+  pattern_type: percentile_window
+  complexity: 4
+  difficulty: hard
+  note: Bottom 10% uses PERCENT_RANK with ASC order (small values first). <= 0.10 selects bottom decile. Subquery + IN clause filters suppliers.
+- id: ex044
+  question: Which materials are sourced from more than one region?
+  sql: 'SELECT ARTICLE_NO, MATERIAL_DESCRIPTION, COUNT(DISTINCT REGION) AS num_regions, SUM(AMOUNT) AS total_spend
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    GROUP BY ARTICLE_NO, MATERIAL_DESCRIPTION
+
+    HAVING COUNT(DISTINCT REGION) > 1
+
+    ORDER BY num_regions DESC, total_spend DESC
+
+    '
+  intent: multi_region_analysis
+  entities:
+  - article
+  - region
+  aggregations:
+  - COUNT
+  - DISTINCT
+  - SUM
+  pattern_type: having_count_distinct
+  complexity: 3
+  difficulty: hard
+  note: HAVING COUNT(DISTINCT REGION) filters groups. Useful for detecting multi-sourcing scenarios.
+- id: ex045
+  question: What percentage of total spend does each supplier contribute?
+  sql: "SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n       ROUND(RATIO_TO_REPORT(SUM(AMOUNT)) OVER () * 100, 2) AS pct_of_total_spend\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY SUPPLIER_NAME\nORDER BY total_spend DESC\n"
+  intent: contribution_percentage
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  - RATIO_TO_REPORT
+  pattern_type: contribution_window
+  complexity: 3
+  difficulty: medium
+  note: RATIO_TO_REPORT() OVER () calculates proportion of total. Multiply by 100 for percentage. ROUND() for readability.
+- id: ex046
+  question: Total spend by supplier classification (Motherson Group vs External)
+  sql: "SELECT CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END AS supplier_type,\n       SUM(AMOUNT) AS total_spend, COUNT(DISTINCT SUPPLIER_NO) AS supplier_count\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END\nORDER BY total_spend DESC\n"
+  intent: supplier_classification
+  entities:
+  - supplier
+  - abc_indicator
+  aggregations:
+  - SUM
+  - COUNT
+  pattern_type: classification_analysis
+  complexity: 2
+  difficulty: medium
+  note: Classification query using derived supplier_type logic. Groups by classification.
+- id: ex047
+  question: Motherson Group supplier spend (ABC_INDICATOR = 'G')
+  sql: 'SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE ABC_INDICATOR = ''G''
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY total_spend DESC
+
+    '
+  intent: supplier_classification
+  entities:
+  - supplier
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: filtered_classification
+  complexity: 2
+  difficulty: easy
+  note: Filter for Motherson Group (G). Use for ''group supplier spend'' or similar queries.
+- id: ex048
+  question: how much spend is with Motherson Group suppliers
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE ABC_INDICATOR = ''G''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: supplier_classification
+  entities:
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: filtered_classification
+  complexity: 1
+  difficulty: easy
+  note: Motherson Group = ABC_INDICATOR = ''G''. Internal/group/in-house/captive all mean G.
+- id: ex049
+  question: show external supplier spend
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE (ABC_INDICATOR IN (''O'',''N'',''S'') OR ABC_INDICATOR IS NULL)
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: supplier_classification
+  entities:
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: filtered_classification
+  complexity: 1
+  difficulty: easy
+  note: External suppliers = ABC_INDICATOR IN (''O'',''N'',''S'') or blank/NULL.
+- id: ex050
+  question: spend where ABC indicator is G
+  sql: 'SELECT ABC_INDICATOR, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE ABC_INDICATOR = ''G''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY ABC_INDICATOR
+
+    '
+  intent: supplier_classification
+  entities:
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: filtered_classification
+  complexity: 1
+  difficulty: easy
+  note: Direct ABC_INDICATOR filter. G=Motherson Group.
+- id: ex051
+  question: spend with internal suppliers
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE ABC_INDICATOR = ''G''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: supplier_classification
+  entities:
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: filtered_classification
+  complexity: 1
+  difficulty: easy
+  note: Internal/in-house/captive suppliers = ABC_INDICATOR = ''G'' (Motherson Group).
+- id: ex052
+  question: Spend by material classification (OEM vs MPP)
+  sql: "SELECT CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END AS material_type,\n       SUM(AMOUNT) AS total_spend, COUNT(DISTINCT ARTICLE_NO) AS article_count\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END\nORDER BY total_spend DESC\n"
+  intent: material_classification
+  entities:
+  - article
+  - oem
+  aggregations:
+  - SUM
+  - COUNT
+  pattern_type: classification_analysis
+  complexity: 2
+  difficulty: medium
+  note: Material sourcing classification. OEM nominated (J,Y) vs MPP nominated (N,G,null).
+- id: ex053
+  question: Spend by incoterm responsibility (Buyer vs Supplier vs Shared)
+  sql: "SELECT CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n            WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n            WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n            WHEN INCO_TERM = '999' THEN 'Unknown'\n            ELSE 'Unclassified' END AS responsibility,\n       SUM(AMOUNT) AS total_spend, COUNT(DISTINCT SUPPLIER_NO) AS supplier_count\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n              WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n              WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n              WHEN INCO_TERM = '999' THEN 'Unknown'\n              ELSE 'Unclassified' END\nORDER BY total_spend DESC\n"
+  intent: incoterm_analysis
+  entities:
+  - supplier
+  - incoterm
+  aggregations:
+  - SUM
+  - COUNT
+  pattern_type: classification_analysis
+  complexity: 3
+  difficulty: hard
+  note: 'Incoterm responsibility: EXW/FCA/FOB/CIF=Buyer, DAP/DDP/DDU=Supplier, CPT/CIP=Shared, 999=Unknown, NULL/blank=Unclassified.'
+- id: ex054
+  question: Top 10 suppliers by spend (with name and classification)
+  sql: "SELECT TOP 10 SUPPLIER_NO, SUPPLIER_NAME,\n       CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END AS supplier_type,\n       SUM(AMOUNT) AS total_spend\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY SUPPLIER_NO, SUPPLIER_NAME, ABC_INDICATOR\nORDER BY total_spend DESC\n"
+  intent: top_suppliers_with_classification
+  entities:
+  - supplier
+  - abc_indicator
+  aggregations:
+  - SUM
+  pattern_type: top_n_with_dimension
+  complexity: 2
+  difficulty: easy
+  note: Combines top N with classification and column pairing (SUPPLIER_NO + SUPPLIER_NAME).
+- id: ex055
+  question: Materials sourced from multiple regions with material classification
+  sql: "SELECT ARTICLE_NO, MATERIAL_DESCRIPTION,\n       CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END AS material_type,\n       COUNT(DISTINCT REGION) AS region_count, SUM(AMOUNT) AS total_spend\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY ARTICLE_NO, MATERIAL_DESCRIPTION, OEM\nHAVING COUNT(DISTINCT REGION) > 1\nORDER BY region_count DESC, total_spend DESC\n"
+  intent: multi_region_with_classification
+  entities:
+  - article
+  - region
+  - oem
+  aggregations:
+  - COUNT
+  - DISTINCT
+  - SUM
+  pattern_type: complex_multi_dimension
+  complexity: 4
+  difficulty: hard
+  note: Combines multi-region detection, material classification, and column pairing.
+- id: ex056
+  question: Top 5 suppliers per region by total spend with supplier classification
+  sql: "SELECT REGION, SUPPLIER_NO, SUPPLIER_NAME,\n       CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END AS supplier_type,\n       SUM(AMOUNT) AS total_spend,\n       ROW_NUMBER() OVER (PARTITION BY REGION ORDER BY SUM(AMOUNT) DESC) AS rank_in_region\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY REGION, SUPPLIER_NO, SUPPLIER_NAME, ABC_INDICATOR\nHAVING ROW_NUMBER() OVER (PARTITION BY REGION ORDER BY SUM(AMOUNT) DESC) <= 5\nORDER BY REGION, rank_in_region\n"
+  intent: top_n_by_partition
+  entities:
+  - region
+  - supplier
+  - abc_indicator
+  aggregations:
+  - SUM
+  - ROW_NUMBER
+  dimensions:
+  - region
+  - supplier
+  - supplier_type
+  pattern_type: window_function_top_n
+  complexity: 4
+  difficulty: hard
+  note: Window function (ROW_NUMBER) to find top 5 suppliers per region with classification.
+- id: ex057
+  question: Suppliers accounting for top 80% of spend by region and commodity with year-to-date comparison
+  sql: "WITH regional_commodity_spend AS (\n  SELECT REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME, YEAR(INVOICE_DATE) AS year,\n         SUM(AMOUNT) AS supplier_spend\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  GROUP BY REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME, YEAR(INVOICE_DATE)\n),\nsupplier_ranked AS (\n  SELECT REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME, year, supplier_spend,\n         PERCENT_RANK() OVER (PARTITION BY REGION, COMMODITY ORDER BY supplier_spend DESC) AS percentile\n  FROM regional_commodity_spend\n)\nSELECT REGION, COMMODITY, year, SUPPLIER_NO, SUPPLIER_NAME, supplier_spend, percentile\nFROM supplier_ranked\nWHERE percentile <= 0.20\nORDER BY REGION, COMMODITY, year, percentile\n"
+  intent: percentile_threshold
+  entities:
+  - region
+  - commodity
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  - PERCENT_RANK
+  dimensions:
+  - region
+  - commodity
+  - year
+  - supplier
+  pattern_type: window_function_percentile
+  complexity: 4
+  difficulty: hard
+  note: 'Percentile filtering (PERCENT_RANK) across 4 dimensions: region, commodity, supplier, year.'
+- id: ex058
+  question: Average unit price and total volume by supplier and region for last 2 years, top 10 by spend
+  sql: "SELECT TOP 10 SUPPLIER_NO, SUPPLIER_NAME, REGION, YEAR(INVOICE_DATE) AS year,\n       COUNT(DISTINCT ARTICLE_NO) AS article_count,\n       SUM(AMOUNT) AS total_spend,\n       AVG(AMOUNT) AS avg_unit_price,\n       COUNT(*) AS invoice_lines,\n       SUM(AMOUNT) / NULLIF(COUNT(DISTINCT ARTICLE_NO), 0) AS spend_per_article\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= CAST(GETDATE() AS DATE) - 730\nGROUP BY SUPPLIER_NO, SUPPLIER_NAME, REGION, YEAR(INVOICE_DATE)\nORDER BY total_spend DESC\n"
+  intent: aggregation_grouped
+  entities:
+  - supplier
+  - region
+  - year
+  - article
+  aggregations:
+  - SUM
+  - AVG
+  - COUNT
+  dimensions:
+  - supplier
+  - region
+  - year
+  pattern_type: multi_aggregate_analysis
+  complexity: 4
+  difficulty: hard
+  note: Multi-dimension aggregation (supplier+region+year) with derived metrics (spend_per_article).
+- id: ex059
+  question: Sourcing concentration by material classification, supplier type, and region
+  sql: "SELECT REGION,\n       CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END AS material_source,\n       CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END AS supplier_type,\n       COUNT(DISTINCT SUPPLIER_NO) AS supplier_count,\n       COUNT(DISTINCT ARTICLE_NO) AS article_count,\n       SUM(AMOUNT) AS total_spend,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (PARTITION BY REGION), 2) AS pct_of_region\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY REGION, OEM, ABC_INDICATOR\nORDER BY REGION, total_spend DESC\n"
+  intent: classification_analysis
+  entities:
+  - region
+  - supplier
+  - oem
+  - abc_indicator
+  aggregations:
+  - SUM
+  - COUNT
+  - DISTINCT
+  dimensions:
+  - region
+  - material_source
+  - supplier_type
+  pattern_type: window_function_percentage
+  complexity: 4
+  difficulty: hard
+  note: Classification-based analysis across 3 dimensions with window function percentage calculation.
+- id: ex060
+  question: Cumulative supplier spend trend by region, commodity, and year
+  sql: "WITH supplier_monthly_spend AS (\n  SELECT REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME,\n         YEAR(INVOICE_DATE) AS year,\n         MONTH(INVOICE_DATE) AS month,\n         SUM(AMOUNT) AS monthly_spend\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  GROUP BY REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME,\n           YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)\n)\nSELECT REGION, COMMODITY, SUPPLIER_NO, SUPPLIER_NAME, year, month, monthly_spend,\n       SUM(monthly_spend) OVER (PARTITION BY REGION, COMMODITY, SUPPLIER_NO ORDER BY year, month\n                                 ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_spend\nFROM supplier_monthly_spend\nORDER BY REGION, COMMODITY, SUPPLIER_NO, year, month\n"
+  intent: cumulative_sum
+  entities:
+  - region
+  - commodity
+  - supplier
+  - year
+  - month
+  aggregations:
+  - SUM
+  - WINDOW
+  dimensions:
+  - region
+  - commodity
+  - supplier
+  - year
+  pattern_type: window_function_cumulative
+  complexity: 4
+  difficulty: hard
+  note: Window function cumulative sum across 5 dimensions (region, commodity, supplier, year, month).
+- id: ex061
+  question: Compare 2024 vs 2025 spend
+  sql: 'SELECT YEAR(INVOICE_DATE) AS YEAR, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE YEAR(INVOICE_DATE) IN (2024, 2025)
+
+    GROUP BY YEAR(INVOICE_DATE)
+
+    ORDER BY YEAR
+
+    '
+  intent: comparison
+  entities:
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Year-over-year comparison with explicit year filter.
+- id: ex062
+  question: Year over year growth by supplier
+  sql: "SELECT SUPPLIER_NAME,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) AS SPEND_2024,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2025 THEN AMOUNT ELSE 0 END) AS SPEND_2025,\n       ROUND((SUM(CASE WHEN YEAR(INVOICE_DATE) = 2025 THEN AMOUNT ELSE 0 END) -\n              SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END)) /\n             NULLIF(SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END), 0) * 100, 2) AS YOY_GROWTH_PCT\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) IN (2024, 2025)\nGROUP BY SUPPLIER_NAME\nHAVING SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) > 0\nORDER BY YOY_GROWTH_PCT DESC\n"
+  intent: comparison
+  entities:
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  - CASE
+  complexity: 4
+  difficulty: hard
+  note: YoY growth calculation with percentage change.
+- id: ex063
+  question: Compare North America vs Iberica region spend
+  sql: 'SELECT REGION, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION IN (''North America'', ''Iberica'')
+
+    GROUP BY REGION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: comparison
+  entities:
+  - region
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Region vs region comparison.
+- id: ex064
+  question: Supplier spend increase from 2023 to 2024
+  sql: "SELECT SUPPLIER_NAME,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) AS SPEND_2023,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) AS SPEND_2024,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) -\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) AS INCREASE\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) IN (2023, 2024)\nGROUP BY SUPPLIER_NAME\nHAVING SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) >\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END)\nORDER BY INCREASE DESC\n"
+  intent: comparison
+  entities:
+  - supplier
+  - year
+  aggregations:
+  - SUM
+  - CASE
+  complexity: 3
+  difficulty: hard
+  note: Suppliers with spending increase between years.
+- id: ex065
+  question: Plant spending higher than previous year
+  sql: "SELECT PLANT_NAME,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = YEAR(GETDATE()) - 1 THEN AMOUNT ELSE 0 END) AS PREV_YEAR,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = YEAR(GETDATE()) THEN AMOUNT ELSE 0 END) AS CURRENT_YEAR\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY PLANT_NAME\nHAVING SUM(CASE WHEN YEAR(INVOICE_DATE) = YEAR(GETDATE()) THEN AMOUNT ELSE 0 END) >\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = YEAR(GETDATE()) - 1 THEN AMOUNT ELSE 0 END)\nORDER BY CURRENT_YEAR DESC\n"
+  intent: comparison
+  entities:
+  - plant
+  - year
+  aggregations:
+  - SUM
+  - CASE
+  complexity: 3
+  difficulty: hard
+  note: Dynamic year comparison using SYSDATE.
+- id: ex066
+  question: Commodity spend decline in 2024
+  sql: "SELECT COMMODITY_DESCRIPTION,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) AS SPEND_2023,\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) AS SPEND_2024\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) IN (2023, 2024)\nGROUP BY COMMODITY_DESCRIPTION\nHAVING SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END) <\n       SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END)\nORDER BY (SUM(CASE WHEN YEAR(INVOICE_DATE) = 2023 THEN AMOUNT ELSE 0 END) -\n          SUM(CASE WHEN YEAR(INVOICE_DATE) = 2024 THEN AMOUNT ELSE 0 END)) DESC\n"
+  intent: comparison
+  entities:
+  - commodity
+  - year
+  aggregations:
+  - SUM
+  - CASE
+  complexity: 3
+  difficulty: hard
+  note: Commodities with declining spend.
+- id: ex067
+  question: Compare Q1 vs Q2 spending by region
+  sql: "SELECT REGION,\n       SUM(CASE WHEN DATEPART(QUARTER, INVOICE_DATE) = 1 THEN AMOUNT ELSE 0 END) AS Q1_SPEND,\n       SUM(CASE WHEN DATEPART(QUARTER, INVOICE_DATE) = 2 THEN AMOUNT ELSE 0 END) AS Q2_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) = YEAR(GETDATE())\nGROUP BY REGION\nORDER BY REGION\n"
+  intent: comparison
+  entities:
+  - region
+  - quarter
+  aggregations:
+  - SUM
+  - CASE
+  complexity: 3
+  difficulty: medium
+  note: Quarter vs quarter comparison.
+- id: ex068
+  question: Variance between supplier spend and average
+  sql: "SELECT SUPPLIER_NAME, SUM(AMOUNT) AS TOTAL_SPEND,\n       SUM(AMOUNT) - (SELECT AVG(supplier_total) FROM (\n         SELECT SUM(AMOUNT) AS supplier_total FROM DBO.VW_DIRECT_SPEND_ALL GROUP BY SUPPLIER_NAME\n       ) AS sub) AS VARIANCE_FROM_AVG\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY SUPPLIER_NAME\nORDER BY VARIANCE_FROM_AVG DESC\n"
+  intent: comparison
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  - AVG
+  complexity: 3
+  difficulty: hard
+  note: Supplier spend variance from average.
+- id: ex069
+  question: Monthly spend breakdown
+  sql: "SELECT YEAR(INVOICE_DATE) AS YEAR,\n       MONTH(INVOICE_DATE) AS MONTH,\n       SUM(AMOUNT) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)\nORDER BY YEAR, MONTH\n"
+  intent: time_series
+  entities:
+  - year
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Monthly time series across all years.
+- id: ex070
+  question: Quarterly spend pattern for 2024
+  sql: "SELECT CONCAT(FORMAT(INVOICE_DATE, 'yyyy'), '-Q', DATEPART(QUARTER, INVOICE_DATE)) AS QUARTER,\n       SUM(AMOUNT) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) = 2024\nGROUP BY CONCAT(FORMAT(INVOICE_DATE, 'yyyy'), '-Q', DATEPART(QUARTER, INVOICE_DATE))\nORDER BY QUARTER\n"
+  intent: time_series
+  entities:
+  - quarter
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Quarterly breakdown with formatted quarter labels.
+- id: ex071
+  question: Weekly spending over the last 12 weeks
+  sql: "SELECT FORMAT(INVOICE_DATE, 'yyyy-ww') AS WEEK,\n       SUM(AMOUNT) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= CAST(GETDATE() AS DATE) - 84\nGROUP BY FORMAT(INVOICE_DATE, 'yyyy-ww')\nORDER BY WEEK\n"
+  intent: time_series
+  entities:
+  - week
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Weekly time series using ISO week format.
+- id: ex072
+  question: Supplier spend evolution by month
+  sql: "SELECT SUPPLIER_NAME,\n       YEAR(INVOICE_DATE) AS YEAR,\n       MONTH(INVOICE_DATE) AS MONTH,\n       SUM(AMOUNT) AS MONTHLY_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY SUPPLIER_NAME, YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)\nORDER BY SUPPLIER_NAME, YEAR, MONTH\n"
+  intent: time_series
+  entities:
+  - supplier
+  - year
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Monthly trend per supplier.
+- id: ex073
+  question: Daily transaction count for current month
+  sql: "SELECT CAST(INVOICE_DATE AS DATE) AS INVOICE_DAY,\n       COUNT(*) AS TRANSACTION_COUNT,\n       SUM(AMOUNT) AS DAILY_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)\nGROUP BY CAST(INVOICE_DATE AS DATE)\nORDER BY INVOICE_DAY\n"
+  intent: time_series
+  entities:
+  - day
+  aggregations:
+  - COUNT
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Daily time series for current month.
+- id: ex074
+  question: Fiscal year spend progression by region
+  sql: "SELECT REGION,\n       YEAR(INVOICE_DATE) AS FISCAL_YEAR,\n       SUM(AMOUNT) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY REGION, YEAR(INVOICE_DATE)\nORDER BY REGION, FISCAL_YEAR\n"
+  intent: time_series
+  entities:
+  - region
+  - year
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Multi-year trend by region.
+- id: ex075
+  question: Month over month spend change
+  sql: "SELECT YEAR(INVOICE_DATE) AS YEAR,\n       MONTH(INVOICE_DATE) AS MONTH,\n       SUM(AMOUNT) AS MONTHLY_SPEND,\n       LAG(SUM(AMOUNT)) OVER (ORDER BY YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)) AS PREV_MONTH,\n       ROUND((SUM(AMOUNT) - LAG(SUM(AMOUNT)) OVER (ORDER BY YEAR(INVOICE_DATE), MONTH(INVOICE_DATE))) /\n             NULLIF(LAG(SUM(AMOUNT)) OVER (ORDER BY YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)), 0) * 100, 2) AS MOM_CHANGE_PCT\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY YEAR(INVOICE_DATE), MONTH(INVOICE_DATE)\nORDER BY YEAR, MONTH\n"
+  intent: time_series
+  entities:
+  - year
+  - month
+  aggregations:
+  - SUM
+  - LAG
+  pattern_type: window_function
+  complexity: 4
+  difficulty: hard
+  note: Month-over-month change using LAG window function.
+- id: ex076
+  question: Quarterly commodity spend throughout the year
+  sql: "SELECT COMMODITY_DESCRIPTION,\n       DATEPART(QUARTER, INVOICE_DATE) AS QUARTER,\n       SUM(AMOUNT) AS QUARTERLY_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE YEAR(INVOICE_DATE) = YEAR(GETDATE())\nGROUP BY COMMODITY_DESCRIPTION, DATEPART(QUARTER, INVOICE_DATE)\nORDER BY COMMODITY_DESCRIPTION, QUARTER\n"
+  intent: time_series
+  entities:
+  - commodity
+  - quarter
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Quarterly breakdown by commodity.
+- id: ex077
+  question: List all suppliers in Iberica region
+  sql: 'SELECT DISTINCT SUPPLIER_NAME
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION = ''Iberica''
+
+    ORDER BY SUPPLIER_NAME
+
+    '
+  intent: enumerate
+  entities:
+  - supplier
+  - region
+  complexity: 2
+  difficulty: easy
+  note: Filtered enumeration with WHERE clause.
+- id: ex078
+  question: What are the available material types
+  sql: 'SELECT DISTINCT MATERIAL_TYPE
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE MATERIAL_TYPE IS NOT NULL
+
+    ORDER BY MATERIAL_TYPE
+
+    '
+  intent: enumerate
+  entities:
+  - material_type
+  complexity: 1
+  difficulty: easy
+  note: Enumerate with NULL filter.
+- id: ex079
+  question: Show all plants ordered by name
+  sql: 'SELECT DISTINCT PLANT_NAME
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    ORDER BY PLANT_NAME
+
+    '
+  intent: enumerate
+  entities:
+  - plant
+  complexity: 1
+  difficulty: easy
+  note: Basic enumeration with alphabetical ordering.
+- id: ex080
+  question: Get all commodities used by supplier ACME
+  sql: 'SELECT DISTINCT COMMODITY_DESCRIPTION
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE UPPER(SUPPLIER_NAME) LIKE ''%ACME%''
+
+    ORDER BY COMMODITY_DESCRIPTION
+
+    '
+  intent: enumerate
+  entities:
+  - commodity
+  - supplier
+  complexity: 2
+  difficulty: medium
+  note: Enumeration filtered by supplier with fuzzy matching.
+- id: ex081
+  question: Spend trend over the past year
+  sql: 'SELECT FORMAT(INVOICE_DATE, ''yyyy-MM'') AS MONTH, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= DATEADD(MONTH, -12, CAST(GETDATE() AS DATE))
+
+    GROUP BY FORMAT(INVOICE_DATE, ''yyyy-MM'')
+
+    ORDER BY MONTH
+
+    '
+  intent: trend
+  entities:
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Past year means last 12 months with MONTHLY granularity for trend visibility.
+- id: ex082
+  question: Purchasing expense trend over past year
+  sql: 'SELECT FORMAT(INVOICE_DATE, ''yyyy-MM'') AS MONTH, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= DATEADD(MONTH, -12, CAST(GETDATE() AS DATE))
+
+    GROUP BY FORMAT(INVOICE_DATE, ''yyyy-MM'')
+
+    ORDER BY MONTH
+
+    '
+  intent: trend
+  entities:
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Expense/spend/cost are synonyms. Monthly breakdown for trend analysis.
+- id: ex083
+  question: Monthly spend trend for last year
+  sql: 'SELECT FORMAT(INVOICE_DATE, ''yyyy-MM'') AS MONTH, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= DATEADD(MONTH, -12, CAST(GETDATE() AS DATE))
+
+    GROUP BY FORMAT(INVOICE_DATE, ''yyyy-MM'')
+
+    ORDER BY MONTH
+
+    '
+  intent: trend
+  entities:
+  - month
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Last year = rolling 12 months. Monthly granularity shows the trend.
+- id: ex084
+  question: Expense trend by month over past year by region
+  sql: 'SELECT REGION, FORMAT(INVOICE_DATE, ''yyyy-MM'') AS MONTH, SUM(AMOUNT) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= DATEADD(MONTH, -12, CAST(GETDATE() AS DATE))
+
+    GROUP BY REGION, FORMAT(INVOICE_DATE, ''yyyy-MM'')
+
+    ORDER BY REGION, MONTH
+
+    '
+  intent: trend
+  entities:
+  - region
+  - month
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Monthly trend with additional dimension (region).
+- id: ex085
+  question: Quarterly spend trend for fiscal year 24-25
+  sql: "SELECT\n  'FY25-Q' + \n  CASE \n    WHEN MONTH(INVOICE_DATE) IN (4, 5, 6)    THEN '1'\n    WHEN MONTH(INVOICE_DATE) IN (7, 8, 9)    THEN '2'\n    WHEN MONTH(INVOICE_DATE) IN (10, 11, 12) THEN '3'\n    WHEN MONTH(INVOICE_DATE) IN (1, 2, 3)    THEN '4'\n  END AS FISCAL_QUARTER,\n  ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE AMOUNT > 0\n  AND INVOICE_DATE >= '2024-04-01'\n  AND INVOICE_DATE < '2025-04-01'\nGROUP BY \n  CASE \n    WHEN MONTH(INVOICE_DATE) IN (4, 5, 6)    THEN '1'\n    WHEN MONTH(INVOICE_DATE) IN (7, 8, 9)    THEN '2'\n    WHEN MONTH(INVOICE_DATE) IN (10, 11, 12) THEN '3'\n    WHEN MONTH(INVOICE_DATE) IN (1, 2, 3)    THEN '4'\n  END\nORDER BY FISCAL_QUARTER\n"
+  intent: trend
+  entities:
+  - quarter
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Quarterly granularity for fiscal year trend. Indian FY = April to March.
+- id: ex086
+  question: Spend by material group
+  sql: 'SELECT KSS, "MG Description", ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY KSS, "MG Description"
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - material_group
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: KSS is the Material Group identifier.
+- id: ex087
+  question: Top 10 material groups by spend
+  sql: 'SELECT TOP 10 KSS, "MG Description", ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY KSS, "MG Description"
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: top_n
+  entities:
+  - material_group
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Top N material groups by KSS and MG Description.
+- id: ex088
+  question: Spend by payment term
+  sql: 'SELECT TERMS_OF_PAYMENT, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY TERMS_OF_PAYMENT
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - payment_term
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Payment term analysis.
+- id: ex089
+  question: Material classification OEM vs MPP spend
+  sql: 'SELECT CASE WHEN OEM IN (''J'',''Y'') THEN ''OEM Nominated'' WHEN OEM = ''G'' THEN ''Group'' ELSE ''MPP Nominated'' END AS MATERIAL_CLASSIFICATION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY CASE WHEN OEM IN (''J'',''Y'') THEN ''OEM Nominated'' WHEN OEM = ''G'' THEN ''Group'' ELSE ''MPP Nominated'' END
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  sql_structure_type: classification
+  entities:
+  - oem
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Material classification uses OEM column. J and Y both = OEM Nominated (J=German, Y=English). NULL/blank = MPP Nominated. NOT MATERIAL_TYPE.
+- id: ex090
+  question: Spend by commodity description
+  sql: 'SELECT COMMODITY, COMMODITY_DESCRIPTION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY COMMODITY, COMMODITY_DESCRIPTION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+  note: Commodity breakdown with description.
+- id: ex091
+  question: Spend by project and customer
+  sql: 'SELECT PROJECT_NAME, CUSTOMER_NAME, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY PROJECT_NAME, CUSTOMER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - project
+  - customer
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Project and customer analysis. CUSTOMER_NAME is full customer name (Audi, BMW, etc).
+- id: ex092
+  question: Motherson Group vs external supplier spend
+  sql: 'SELECT CASE WHEN ABC_INDICATOR = ''G'' THEN ''Motherson Group'' ELSE ''External'' END AS SUPPLIER_TYPE, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY CASE WHEN ABC_INDICATOR = ''G'' THEN ''Motherson Group'' ELSE ''External'' END
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - supplier_classification
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Supplier classification uses ABC_INDICATOR=G for Motherson, NOT CUSTOMER LIKE Motherson.
+- id: ex093
+  question: Spend by material group and article for FY25
+  sql: 'SELECT KSS, "MG Description", ARTICLE_NO, MATERIAL_DESCRIPTION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01'' AND INVOICE_DATE < ''2025-04-01''
+
+    GROUP BY KSS, "MG Description", ARTICLE_NO, MATERIAL_DESCRIPTION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - material_group
+  - article
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Material group with article drill-down.
+- id: ex094
+  question: Total spend in USD
+  sql: 'SELECT ROUND(SUM(AMOUNT * EXCH_RATE), 2) AS TOTAL_SPEND_USD
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE EXCH_CURRENCY = ''USD''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation
+  entities:
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+  note: 'Currency conversion: AMOUNT is in EUR. Multiply by EXCH_RATE and filter EXCH_CURRENCY for target currency.'
+- id: ex095
+  question: Top 10 suppliers by spend in MXN
+  sql: 'SELECT TOP 10 SUPPLIER_NAME, ROUND(SUM(AMOUNT * EXCH_RATE), 2) AS TOTAL_SPEND_MXN
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE EXCH_CURRENCY = ''MXN''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND_MXN DESC
+
+    '
+  intent: top_n
+  entities:
+  - supplier
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Currency conversion with top N. Filter EXCH_CURRENCY and use AMOUNT * EXCH_RATE.
+- id: ex096
+  question: Spend by region in INR
+  sql: 'SELECT REGION, ROUND(SUM(AMOUNT * EXCH_RATE), 2) AS TOTAL_SPEND_INR
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE EXCH_CURRENCY = ''INR''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY REGION
+
+    ORDER BY TOTAL_SPEND_INR DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - region
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Regional breakdown with currency conversion to INR.
+- id: ex097
+  question: Spend in chinese yuan by supplier
+  sql: 'SELECT SUPPLIER_NAME, ROUND(SUM(AMOUNT * EXCH_RATE), 2) AS TOTAL_SPEND_CNY
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE EXCH_CURRENCY = ''CNY''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY SUPPLIER_NAME
+
+    ORDER BY TOTAL_SPEND_CNY DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - supplier
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Currency conversion to CNY. ALWAYS use AMOUNT * EXCH_RATE when converting currency.
+- id: ex098
+  question: Convert spend to GBP by region
+  sql: 'SELECT REGION, ROUND(SUM(AMOUNT * EXCH_RATE), 2) AS TOTAL_SPEND_GBP
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE EXCH_CURRENCY = ''GBP''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY REGION
+
+    ORDER BY TOTAL_SPEND_GBP DESC
+
+    '
+  intent: aggregation_grouped
+  entities:
+  - region
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Any currency conversion MUST use SUM(AMOUNT * EXCH_RATE), not SUM(AMOUNT).
+- id: ex099
+  question: Spend on Motherson nominated materials
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE (OEM = ''N'' OR OEM IS NULL)
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation_filtered
+  entities:
+  - oem
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Motherson Nominated = MPP Nominated = OEM IN (''N'') or NULL. This is about MATERIAL sourcing, not supplier classification. Different from Motherson Group (ABC_INDICATOR=''G'').
+- id: ex100
+  question: OEM nominated vs Motherson nominated spend by region
+  sql: "SELECT REGION,\n       CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END AS material_source,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY REGION, CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END\nORDER BY REGION, TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  entities:
+  - region
+  - oem
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: OEM nominated (J/Y) vs Motherson/MPP nominated (N/NULL/G) by region. Uses material_classification business rule.
+- id: ex101
+  question: Spend by supplier type and material classification
+  sql: "SELECT CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END AS supplier_type,\n       CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' WHEN OEM = 'G' THEN 'Group' ELSE 'MPP Nominated' END AS material_source,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       COUNT(DISTINCT SUPPLIER_NO) AS supplier_count\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY CASE WHEN ABC_INDICATOR = 'G' THEN 'Motherson Group' ELSE 'External' END,\n         CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' WHEN OEM = 'G' THEN 'Group' ELSE 'MPP Nominated' END\nORDER BY TOTAL_SPEND DESC\n"
+  intent: cross_classification
+  sql_structure_type: classification
+  entities:
+  - supplier_classification
+  - oem
+  aggregations:
+  - SUM
+  - COUNT
+  complexity: 4
+  difficulty: hard
+  note: 'Cross-classification matrix: supplier type (ABC_INDICATOR) x material source (OEM). Both CASE WHENs in one query with 2D GROUP BY.'
+- id: ex102
+  question: Spend by incoterm with all 5 categories
+  sql: "SELECT CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n            WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n            WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n            WHEN INCO_TERM = '999' THEN 'Unknown'\n            ELSE 'Unclassified' END AS responsibility,\n       COUNT(DISTINCT SUPPLIER_NO) AS supplier_count,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n              WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n              WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n              WHEN INCO_TERM = '999' THEN 'Unknown'\n              ELSE 'Unclassified' END\nORDER BY TOTAL_SPEND DESC\n"
+  intent: incoterm_analysis
+  sql_structure_type: classification
+  entities:
+  - incoterm
+  aggregations:
+  - SUM
+  - COUNT
+  complexity: 3
+  difficulty: medium
+  note: Full 5-way incoterm responsibility. CIF=Buyer. NULL/blank=Unclassified. 999=Unknown.
+- id: ex103
+  question: Top 80% suppliers by spend (pareto)
+  sql: "WITH ranked AS (\n  SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n         SUM(SUM(AMOUNT)) OVER (ORDER BY SUM(AMOUNT) DESC) AS cumulative_spend,\n         SUM(SUM(AMOUNT)) OVER () AS grand_total\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE INVOICE_DATE >= '2024-04-01'\n  GROUP BY SUPPLIER_NAME\n)\nSELECT SUPPLIER_NAME, ROUND(total_spend, 2) AS TOTAL_SPEND,\n       ROUND(cumulative_spend * 100.0 / grand_total, 2) AS CUMULATIVE_PCT\nFROM ranked\nWHERE cumulative_spend <= grand_total * 0.80\nORDER BY total_spend DESC\n"
+  intent: pareto
+  sql_structure_type: pareto
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: 'Pareto/80-20: CTE with cumulative window SUM ordered DESC. Filter where cumulative <= threshold. Shows suppliers accounting for top 80% of spend.'
+- id: ex104
+  question: Which suppliers make up the top 90% of spend in Germany?
+  sql: "WITH ranked AS (\n  SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n         SUM(SUM(AMOUNT)) OVER (ORDER BY SUM(AMOUNT) DESC) AS cumulative_spend,\n         SUM(SUM(AMOUNT)) OVER () AS grand_total\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE REGION = 'Germany and Eastern Europe'\n  AND INVOICE_DATE >= '2024-04-01'\n  GROUP BY SUPPLIER_NAME\n)\nSELECT SUPPLIER_NAME, ROUND(total_spend, 2) AS TOTAL_SPEND,\n       ROUND(cumulative_spend * 100.0 / grand_total, 2) AS CUMULATIVE_PCT\nFROM ranked\nWHERE cumulative_spend <= grand_total * 0.90\nORDER BY total_spend DESC\n"
+  intent: pareto
+  sql_structure_type: pareto
+  entities:
+  - supplier
+  - region
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: Pareto with region filter. Same CTE pattern, just with WHERE on REGION.
+- id: ex105
+  question: Tail spend suppliers (bottom 10%)
+  sql: "WITH ranked AS (\n  SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n         SUM(SUM(AMOUNT)) OVER (ORDER BY SUM(AMOUNT) ASC) AS cumulative_spend,\n         SUM(SUM(AMOUNT)) OVER () AS grand_total\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE INVOICE_DATE >= '2024-04-01'\n  GROUP BY SUPPLIER_NAME\n)\nSELECT SUPPLIER_NAME, ROUND(total_spend, 2) AS TOTAL_SPEND,\n       ROUND(cumulative_spend * 100.0 / grand_total, 2) AS CUMULATIVE_PCT\nFROM ranked\nWHERE cumulative_spend <= grand_total * 0.10\nORDER BY total_spend ASC\n"
+  intent: tail_spend
+  sql_structure_type: tail_spend
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: Tail spend = bottom X% by cumulative ascending. Inverse of pareto. ORDER BY ASC, cumulative ascending.
+- id: ex106
+  question: How many suppliers are in the tail spend at 5%?
+  sql: "WITH ranked AS (\n  SELECT SUPPLIER_NAME, SUM(AMOUNT) AS total_spend,\n         SUM(SUM(AMOUNT)) OVER (ORDER BY SUM(AMOUNT) ASC) AS cumulative_spend,\n         SUM(SUM(AMOUNT)) OVER () AS grand_total\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE INVOICE_DATE >= '2024-04-01'\n  GROUP BY SUPPLIER_NAME\n)\nSELECT COUNT(*) AS TAIL_SUPPLIER_COUNT,\n       ROUND(SUM(total_spend), 2) AS TAIL_TOTAL_SPEND\nFROM ranked\nWHERE cumulative_spend <= grand_total * 0.05\n"
+  intent: tail_spend
+  sql_structure_type: tail_spend
+  entities:
+  - supplier
+  aggregations:
+  - COUNT
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: 'Tail spend count: how many suppliers in the bottom X%. Wraps tail CTE with COUNT(*).'
+- id: ex107
+  question: Top 5 suppliers for each region
+  sql: "WITH ranked AS (\n  SELECT SUPPLIER_NAME, REGION, SUM(AMOUNT) AS total_spend,\n         ROW_NUMBER() OVER (PARTITION BY REGION ORDER BY SUM(AMOUNT) DESC) AS rn\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE INVOICE_DATE >= '2024-04-01'\n  GROUP BY SUPPLIER_NAME, REGION\n)\nSELECT REGION, SUPPLIER_NAME, ROUND(total_spend, 2) AS TOTAL_SPEND\nFROM ranked\nWHERE rn <= 5\nORDER BY REGION, total_spend DESC\n"
+  intent: top_n_per_partition
+  sql_structure_type: top_n_per_partition
+  entities:
+  - supplier
+  - region
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: 'Top N per partition: ROW_NUMBER() OVER (PARTITION BY region ORDER BY spend DESC). Filter rn <= N.'
+- id: ex108
+  question: Top 3 commodities per country by spend
+  sql: "WITH ranked AS (\n  SELECT COMMODITY_DESCRIPTION, COUNTRY, SUM(AMOUNT) AS total_spend,\n         ROW_NUMBER() OVER (PARTITION BY COUNTRY ORDER BY SUM(AMOUNT) DESC) AS rn\n  FROM DBO.VW_DIRECT_SPEND_ALL\n  WHERE INVOICE_DATE >= '2024-04-01'\n  GROUP BY COMMODITY_DESCRIPTION, COUNTRY\n)\nSELECT COUNTRY, COMMODITY_DESCRIPTION, ROUND(total_spend, 2) AS TOTAL_SPEND\nFROM ranked\nWHERE rn <= 3\nORDER BY COUNTRY, total_spend DESC\n"
+  intent: top_n_per_partition
+  sql_structure_type: top_n_per_partition
+  entities:
+  - commodity
+  - country
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: Top N per partition with commodity and country. Same ROW_NUMBER() pattern.
+- id: ex109
+  question: Spend percentage by region
+  sql: "SELECT REGION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY REGION\nORDER BY TOTAL_SPEND DESC\n"
+  intent: percentage
+  sql_structure_type: percentage
+  entities:
+  - region
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: 'Percentage of total: SUM(AMOUNT)*100.0 / SUM(SUM(AMOUNT)) OVER () gives each group''s share.'
+- id: ex110
+  question: What percentage of spend is OEM nominated?
+  sql: "SELECT CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END AS material_source,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY CASE WHEN OEM IN ('J','Y') THEN 'OEM Nominated' ELSE 'MPP Nominated' END\nORDER BY TOTAL_SPEND DESC\n"
+  intent: percentage
+  sql_structure_type: percentage
+  entities:
+  - oem
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Percentage with classification. Combines material_classification CASE WHEN with share-of-total window function.
+- id: ex111
+  question: Supplier spend with percentage contribution
+  sql: "SELECT TOP 20 SUPPLIER_NAME, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY SUPPLIER_NAME\nORDER BY TOTAL_SPEND DESC\n"
+  intent: percentage
+  sql_structure_type: percentage
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: 'Supplier contribution %: each supplier''s share of total spend. Top 20 with percentage.'
+- id: ex112
+  question: Commodity spend share breakdown
+  sql: "SELECT COMMODITY_DESCRIPTION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY COMMODITY_DESCRIPTION\nORDER BY TOTAL_SPEND DESC\n"
+  intent: percentage
+  sql_structure_type: percentage
+  entities:
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Commodity share/proportion breakdown. Same percentage pattern with commodity dimension.
+- id: ex113
+  question: Monthly spend trend for FY25 in fiscal order
+  sql: "SELECT FORMAT(INVOICE_DATE, 'yyyy-MM') AS MONTH,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nAND INVOICE_DATE < '2025-04-01'\nGROUP BY FORMAT(INVOICE_DATE, 'yyyy-MM'), ((MONTH(INVOICE_DATE) - 4 + 12) % 12)\nORDER BY ((MONTH(INVOICE_DATE) - 4 + 12) % 12)\n"
+  intent: trend
+  entities:
+  - time
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: 'Fiscal month ordering: MOD(MONTH-4+12, 12) maps Apr=0...Mar=11. Use for FY monthly trends.'
+- id: ex114
+  question: Total spend excluding Germany
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION != ''Germany and Eastern Europe''
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation_filtered
+  entities:
+  - region
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: 'Negation filter: ''excluding'' / ''except'' / ''other than'' → != or NOT IN. Use exact DB value.'
+- id: ex115
+  question: Spend by region other than North America and LATAM
+  sql: 'SELECT REGION, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE REGION NOT IN (''North America'', ''LATAM (Mexico)'')
+
+    AND INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY REGION
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped_filtered
+  entities:
+  - region
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+  note: NOT IN for multiple exclusions. 'other than' / 'except' / 'not including' → NOT IN.
+- id: ex116
+  question: Suppliers without any spend in plastics
+  sql: "SELECT TOP 20 SUPPLIER_NAME, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE SUPPLIER_NO NOT IN (\n  SELECT DISTINCT SUPPLIER_NO FROM DBO.VW_DIRECT_SPEND_ALL WHERE COMMODITY = 'E011'\n)\nAND INVOICE_DATE >= '2024-04-01'\nGROUP BY SUPPLIER_NAME\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_filtered
+  entities:
+  - supplier
+  - commodity
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+  note: 'Negation with subquery: ''without'' / ''not having'' may need NOT IN subquery approach.'
+- id: ex117
+  question: What is the total spend?
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation
+  entities: []
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: 'Single-value KPI: no GROUP BY, no dimensions. Just one aggregated number.'
+- id: ex118
+  question: How many unique suppliers do we have?
+  sql: 'SELECT COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation
+  entities: []
+  aggregations:
+  - COUNT_DISTINCT
+  complexity: 1
+  difficulty: easy
+  note: 'Single-value KPI: COUNT DISTINCT with no grouping. No unnecessary GROUP BY.'
+- id: ex119
+  question: What is the average transaction amount?
+  sql: 'SELECT ROUND(AVG(AMOUNT), 2) AS AVG_TRANSACTION
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    '
+  intent: aggregation
+  entities: []
+  aggregations:
+  - AVG
+  complexity: 1
+  difficulty: easy
+  note: Single-value KPI with AVG. No GROUP BY needed.
+- id: ex120
+  question: Articles sourced from multiple regions
+  sql: "SELECT TOP 50 ARTICLE_NO, MATERIAL_DESCRIPTION,\n       COUNT(DISTINCT REGION) AS REGION_COUNT,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY ARTICLE_NO, MATERIAL_DESCRIPTION\nHAVING COUNT(DISTINCT REGION) > 1\nORDER BY REGION_COUNT DESC, TOTAL_SPEND DESC\n"
+  intent: multi_region
+  entities:
+  - article
+  - region
+  aggregations:
+  - COUNT
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: 'Articles in multiple regions: HAVING COUNT(DISTINCT REGION) > 1. Shows cross-region sourcing.'
+- id: ex121
+  question: Materials available in all 4 regions
+  sql: "SELECT ARTICLE_NO, MATERIAL_DESCRIPTION,\n       COUNT(DISTINCT REGION) AS REGION_COUNT,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY ARTICLE_NO, MATERIAL_DESCRIPTION\nHAVING COUNT(DISTINCT REGION) = 4\nORDER BY TOTAL_SPEND DESC\n"
+  intent: multi_region
+  entities:
+  - article
+  - region
+  aggregations:
+  - COUNT
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: 'Materials in ALL regions: HAVING COUNT(DISTINCT REGION) = 4 (there are 4 regions).'
+- id: ex122
+  question: Compare spend FY25 vs FY24 by region
+  sql: "SELECT REGION,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2023-04-01' AND INVOICE_DATE < '2024-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY24_SPEND,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2024-04-01' AND INVOICE_DATE < '2025-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY25_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2023-04-01'\nAND INVOICE_DATE < '2025-04-01'\nGROUP BY REGION\nORDER BY FY25_SPEND DESC\n"
+  intent: comparison
+  sql_structure_type: comparison
+  entities:
+  - region
+  - time
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: FY comparison using CASE WHEN pivot. Both FYs in one query. FY24=Apr2023-Mar2024, FY25=Apr2024-Mar2025.
+- id: ex123
+  question: Year over year spend comparison by commodity FY24 vs FY25
+  sql: "SELECT TOP 20 COMMODITY_DESCRIPTION,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2023-04-01' AND INVOICE_DATE < '2024-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY24_SPEND,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2024-04-01' AND INVOICE_DATE < '2025-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY25_SPEND,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2024-04-01' AND INVOICE_DATE < '2025-04-01' THEN AMOUNT ELSE 0 END) -\n             SUM(CASE WHEN INVOICE_DATE >= '2023-04-01' AND INVOICE_DATE < '2024-04-01' THEN AMOUNT ELSE 0 END), 2) AS YOY_CHANGE\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2023-04-01'\nAND INVOICE_DATE < '2025-04-01'\nGROUP BY COMMODITY_DESCRIPTION\nORDER BY FY25_SPEND DESC\n"
+  intent: comparison
+  sql_structure_type: comparison
+  entities:
+  - commodity
+  - time
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: YoY comparison with delta column. Shows FY24, FY25, and the difference. Top 20 commodities.
+- id: ex124
+  question: What percentage of total spend does each country contribute?
+  sql: "SELECT COUNTRY, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY COUNTRY\nORDER BY TOTAL_SPEND DESC\n"
+  intent: percentage
+  sql_structure_type: percentage
+  entities:
+  - country
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: medium
+  note: Country-level percentage contribution. Same OVER() window pattern as region percentage.
+- id: ex125
+  question: Spend breakdown by incoterm responsibility category
+  sql: "SELECT CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n            WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n            WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n            WHEN INCO_TERM = '999' THEN 'Unknown'\n            ELSE 'Unclassified' END AS responsibility,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(SUM(AMOUNT) * 100.0 / SUM(SUM(AMOUNT)) OVER (), 2) AS PCT_OF_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY CASE WHEN INCO_TERM IN ('EXW','FCA','FOB','CIF') THEN 'Buyer'\n              WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Supplier'\n              WHEN INCO_TERM IN ('CPT','CIP') THEN 'Shared'\n              WHEN INCO_TERM = '999' THEN 'Unknown'\n              ELSE 'Unclassified' END\nORDER BY TOTAL_SPEND DESC\n"
+  intent: classification
+  sql_structure_type: classification
+  entities:
+  - incoterm
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: Full 5-way incoterm classification with percentage. Combines CASE WHEN with OVER() window for share of total.
+- id: ex126
+  question: Compare top 10 commodities FY24 vs FY25 with year over year change
+  sql: "SELECT TOP 10 COMMODITY_DESCRIPTION,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2023-04-01' AND INVOICE_DATE < '2024-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY24_SPEND,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2024-04-01' AND INVOICE_DATE < '2025-04-01' THEN AMOUNT ELSE 0 END), 2) AS FY25_SPEND,\n       ROUND(SUM(CASE WHEN INVOICE_DATE >= '2024-04-01' AND INVOICE_DATE < '2025-04-01' THEN AMOUNT ELSE 0 END) -\n             SUM(CASE WHEN INVOICE_DATE >= '2023-04-01' AND INVOICE_DATE < '2024-04-01' THEN AMOUNT ELSE 0 END), 2) AS YOY_CHANGE\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2023-04-01'\nAND INVOICE_DATE < '2025-04-01'\nGROUP BY COMMODITY_DESCRIPTION\nORDER BY FY25_SPEND DESC\n"
+  intent: comparison
+  sql_structure_type: comparison
+  entities:
+  - commodity
+  - time
+  aggregations:
+  - SUM
+  complexity: 4
+  difficulty: hard
+  note: YoY top 10 commodities comparison. CASE WHEN pivot for FY24 vs FY25 with FETCH FIRST 10.
+- id: ex127
+  question: Total spend, supplier count, and average transaction amount
+  sql: "SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT,\n       ROUND(AVG(AMOUNT), 2) AS AVG_TRANSACTION\nFROM DBO.VW_DIRECT_SPEND_ALL\n"
+  intent: aggregation
+  sql_structure_type: aggregation
+  entities: []
+  aggregations:
+  - SUM
+  - COUNT DISTINCT
+  - AVG
+  complexity: 2
+  difficulty: medium
+  note: Multi-metric single-row KPI. Multiple aggregations in one SELECT, no GROUP BY.
+- id: ex128
+  question: Spend by region with supplier count
+  sql: "SELECT REGION,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       COUNT(DISTINCT SUPPLIER_NO) AS SUPPLIER_COUNT\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY REGION\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - region
+  aggregations:
+  - SUM
+  - COUNT DISTINCT
+  complexity: 2
+  difficulty: medium
+  note: Multi-metric grouped. Two aggregations with GROUP BY.
+- id: ex129
+  question: Total and average spend by commodity
+  sql: "SELECT COMMODITY_DESCRIPTION,\n       ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND,\n       ROUND(AVG(AMOUNT), 2) AS AVG_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nGROUP BY COMMODITY_DESCRIPTION\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - commodity
+  aggregations:
+  - SUM
+  - AVG
+  complexity: 2
+  difficulty: medium
+  note: Multi-metric grouped. SUM and AVG of same column with GROUP BY.
+- id: ex130
+  question: Motherson nominated material spend
+  sql: 'SELECT ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE (OEM = ''N'' OR OEM IS NULL)
+
+    '
+  intent: aggregation
+  sql_structure_type: aggregation
+  entities:
+  - oem
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Motherson/MPP nominated = NOT OEM nominated. OEM='N' or OEM IS NULL means MPP directed sourcing.
+- id: ex131
+  question: Total spend by business unit
+  sql: 'SELECT SBU, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY SBU
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - sbu
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: SBU = Strategic Business Unit. New column in VW_DIRECT_SPEND_ALL.
+- id: ex132
+  question: Show spend by proposed category for LCC analysis
+  sql: "SELECT PROPOSED_CATEGORY, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\n  AND PROPOSED_CATEGORY IS NOT NULL\nGROUP BY PROPOSED_CATEGORY\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - proposed_category
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: PROPOSED_CATEGORY for Low Cost Country analysis.
+- id: ex133
+  question: Spend breakdown by customer name
+  sql: 'SELECT CUSTOMER_NAME, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE >= ''2024-04-01''
+
+    GROUP BY CUSTOMER_NAME
+
+    ORDER BY TOTAL_SPEND DESC
+
+    '
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - customer
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: CUSTOMER_NAME is full customer name, more descriptive than CUSTOMER code.
+- id: ex134
+  question: Spend by country of origin
+  sql: "SELECT COUNTRY_OF_ORIGIN, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\n  AND COUNTRY_OF_ORIGIN IS NOT NULL\nGROUP BY COUNTRY_OF_ORIGIN\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - country_of_origin
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: easy
+  note: COUNTRY_OF_ORIGIN = where the goods originate.
+- id: ex135
+  question: Compare spend by SBU for OEM vs MPP nominated parts
+  sql: "SELECT SBU,\n       ROUND(SUM(CASE WHEN OEM IN ('J','Y') THEN AMOUNT ELSE 0 END), 2) AS OEM_SPEND,\n       ROUND(SUM(CASE WHEN OEM = 'N' OR OEM IS NULL THEN AMOUNT ELSE 0 END), 2) AS MPP_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY SBU\nORDER BY OEM_SPEND + MPP_SPEND DESC\n"
+  intent: comparison
+  sql_structure_type: comparison
+  entities:
+  - sbu
+  - oem
+  aggregations:
+  - SUM
+  complexity: 3
+  difficulty: hard
+  note: Cross-classification of SBU with OEM nomination type.
+- id: ex136
+  question: What is the local currency amount for Mexico plants?
+  sql: "SELECT PLANT_NAME, EXCH_CURRENCY, ROUND(SUM(AMOUNT), 2) AS LOCAL_AMOUNT\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\n  AND UPPER(REGION) LIKE '%AMERICA%'\nGROUP BY PLANT_NAME, EXCH_CURRENCY\nORDER BY LOCAL_AMOUNT DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - plant
+  - currency
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: AMOUNT in EXCH_CURRENCY (exchange currency). EXCH_CURRENCY = currency code.
+- id: ex137
+  question: Show spend by fiscal year
+  sql: 'SELECT YEAR(INVOICE_DATE) AS FISCAL_YEAR, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND
+
+    FROM DBO.VW_DIRECT_SPEND_ALL
+
+    WHERE INVOICE_DATE IS NOT NULL
+
+    GROUP BY YEAR(INVOICE_DATE)
+
+    ORDER BY FISCAL_YEAR DESC
+
+    '
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - time
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: Extract fiscal year from INVOICE_DATE. 4-digit year.
+- id: ex138
+  question: Top 10 suppliers by negotiated price vs actual spend
+  sql: "SELECT TOP 10 SUPPLIER_NAME,\n       ROUND(SUM(AMOUNT), 2) AS ACTUAL_SPEND,\n       ROUND(SUM(ORG_NEGOTIATED_PRICE), 2) AS NEGOTIATED_TOTAL\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\nGROUP BY SUPPLIER_NAME\nORDER BY ACTUAL_SPEND DESC\n"
+  intent: top_n
+  sql_structure_type: top_n
+  entities:
+  - supplier
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: ORG_NEGOTIATED_PRICE = original agreed price. Compare with AMOUNT for price variance.
+- id: ex139
+  question: Spend by main country name
+  sql: "SELECT MAIN_COUNTRY, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\n  AND MAIN_COUNTRY IS NOT NULL\nGROUP BY MAIN_COUNTRY\nORDER BY TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - geography
+  aggregations:
+  - SUM
+  complexity: 1
+  difficulty: easy
+  note: MAIN_COUNTRY = full country name (Germany, Hungary, Mexico) vs COUNTRY which is 3-letter code.
+- id: ex140
+  question: LCC analysis by region and proposed category
+  sql: "SELECT REGION, PROPOSED_CATEGORY, ROUND(SUM(AMOUNT), 2) AS TOTAL_SPEND\nFROM DBO.VW_DIRECT_SPEND_ALL\nWHERE INVOICE_DATE >= '2024-04-01'\n  AND PROPOSED_CATEGORY IS NOT NULL\nGROUP BY REGION, PROPOSED_CATEGORY\nORDER BY REGION, TOTAL_SPEND DESC\n"
+  intent: aggregation_grouped
+  sql_structure_type: aggregation_grouped
+  entities:
+  - region
+  - proposed_category
+  aggregations:
+  - SUM
+  complexity: 2
+  difficulty: medium
+  note: Cross-tabulation of region with proposed LCC category.
