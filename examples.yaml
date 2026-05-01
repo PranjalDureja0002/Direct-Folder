@@ -1,6 +1,6 @@
 metadata:
   version: '1.0'
-  count: 140
+  count: 141
 examples:
 - id: ex001
   question: What is the total spend?
@@ -2364,3 +2364,33 @@ examples:
   complexity: 2
   difficulty: medium
   note: Cross-tabulation of region with proposed LCC category.
+- id: ex141
+  question: Compare spend on parts delivered by suppliers (DDP/DDU/DAP) vs parts picked up by the supplier (the other Incoterms) for plant Tuscaloosa
+  sql: |
+    SELECT
+      CASE
+        WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Delivered by Supplier'
+        ELSE 'Picked up / Other'
+      END AS DELIVERY_TYPE,
+      SUM(AMOUNT) AS TOTAL_SPEND,
+      COUNT(DISTINCT INVOICE_NO) AS INVOICE_COUNT
+    FROM DBO.VW_DIRECT_SPEND_ALL
+    WHERE INVOICE_DATE >= '2024-04-01'
+      AND UPPER(PLANT_NAME) LIKE UPPER('%TUSCALOOSA%')
+    GROUP BY
+      CASE
+        WHEN INCO_TERM IN ('DAP','DDP','DDU') THEN 'Delivered by Supplier'
+        ELSE 'Picked up / Other'
+      END
+    ORDER BY TOTAL_SPEND DESC
+  intent: comparison
+  entities:
+  - incoterm
+  - plant
+  aggregations:
+  - SUM
+  - COUNT_DISTINCT
+  pattern_type: binary_bucket_comparison
+  complexity: 3
+  difficulty: medium
+  note: 'Binary-bucket CASE-WHEN. The ELSE branch covers everything that is NOT delivered by supplier (EXW/FCA/FOB/CIF/CPT/CIP/999/NULL). For multi-plant filters use IN (''TUSCALOOSA'',''OLDENBURG'') or OR-LIKE.'
